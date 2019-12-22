@@ -1,9 +1,11 @@
 package kr.p.eye.platform.member;
 
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -24,12 +26,15 @@ public class MemberDao {
 	}
 		
 
-	public Member getMember() {
-	
-			String sql = "SELECT * FROM member_info";
-			return jdbc.queryForObject(sql,  Collections.emptyMap(), rowMapper);
+	public Member getMember(String memberId) {
+		try {
+			Map<String, String> params = new HashMap<>();
+			params.put("memberId", memberId);
+			String sql = "SELECT * FROM member_info WHERE member_id = :memberId";
+			return jdbc.queryForObject(sql, params, rowMapper);
 
-
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
-
 }
