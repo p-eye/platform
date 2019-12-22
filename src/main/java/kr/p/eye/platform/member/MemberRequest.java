@@ -2,6 +2,9 @@ package kr.p.eye.platform.member;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
 public class MemberRequest {
 	
 	private int memberNo;
@@ -10,13 +13,13 @@ public class MemberRequest {
 	
 	private String memberPw;
 	
-	private String memberPw2;
-	
 	private String memberName;
 	
-
+	@NotEmpty(message = "성별을 입력해주세요")
 	private String memberGender;
 
+	@Pattern(regexp = "^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$", 
+			message = "연락처 형식을 확인해주세요")
 	private String memberPhone;
 
 	
@@ -28,13 +31,12 @@ public class MemberRequest {
 		memberCreateDate = LocalDateTime.now();
 	}
 
-	public MemberRequest(int memberNo, String memberId, String memberPw, String memberPw2, String memberName,
+	public MemberRequest(int memberNo, String memberId, String memberPw, String memberName,
 			String memberGender, String memberPhone, String memberBirthday,
 			LocalDateTime memberCreateDate) {
 		this.memberNo = memberNo;
 		this.memberId = memberId;
 		this.memberPw = memberPw;
-		this.memberPw2 = memberPw2;
 		this.memberName = memberName;
 		this.memberGender = memberGender;
 		this.memberPhone = memberPhone;
@@ -66,13 +68,6 @@ public class MemberRequest {
 		this.memberPw = memberPw;
 	}
 
-	public String getMemberPw2() {
-		return memberPw2;
-	}
-
-	public void setMemberPw2(String memberPw2) {
-		this.memberPw2 = memberPw2;
-	}
 
 	public String getMemberName() {
 		return memberName;
@@ -118,7 +113,7 @@ public class MemberRequest {
 	@Override
 	public String toString() {
 		return "MemberRequest [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPw=" + memberPw
-				+ ", memberPw2=" + memberPw2 + ", memberName=" + memberName + ", memberGender=" + memberGender
+				+ ", memberName=" + memberName + ", memberGender=" + memberGender
 				+ ", memberPhone=" + memberPhone + ", memberBirthday=" + memberBirthday
 				+ ", memberCreateDate=" + memberCreateDate + "]";
 	}

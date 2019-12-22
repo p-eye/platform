@@ -8,7 +8,9 @@ import javax.sql.DataSource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +28,12 @@ public class MemberDao {
 	}
 		
 
+	public int insertMember(MemberRequest memberRequest) {
+		SqlParameterSource params = new BeanPropertySqlParameterSource(memberRequest);
+		return insertAction.executeAndReturnKey(params).intValue();
+	}
+
+	
 	public Member getMember(String memberId) {
 		try {
 			Map<String, String> params = new HashMap<>();

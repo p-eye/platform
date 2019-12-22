@@ -16,13 +16,17 @@ public class MemberServiceImpl implements MemberService {
 
 		if (!isIdValid(memberId)) {
 			// 아이디 유효성 검사
+			System.out.println("20001");
 			throw new MemberException("올바른 아이디를 입력해주세요");
 		}
 
 		if (!isIdNew(memberId)) {
 			// 아이디 중복 검사
+			System.out.println("3333");
 			throw new MemberException("이미 등록된 이메일입니다");
 		}
+
+		System.out.println("4444");
 
 	}
 
@@ -36,5 +40,10 @@ public class MemberServiceImpl implements MemberService {
 			return true;
 		} else
 			return false;
+	}
+
+	@Override
+	public int insertMember(MemberRequest memberRequest) {
+		return memberDao.insertMember(memberRequest);
 	}
 }
