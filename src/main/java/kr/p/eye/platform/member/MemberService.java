@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface MemberService {
 
-	public boolean isIdNew(String memberId);
+	public void isIdPassed(String memberId);
 
 }
