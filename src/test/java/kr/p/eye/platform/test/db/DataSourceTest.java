@@ -1,4 +1,4 @@
-package kr.p.eye.flatform.test.db;
+package kr.p.eye.platform.test.db;
 
 import java.sql.Connection;
 

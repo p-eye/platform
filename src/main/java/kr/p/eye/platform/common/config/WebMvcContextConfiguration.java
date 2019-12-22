@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"kr.p.eye.platform.member.controller"})
+@ComponentScan(basePackages = {"kr.p.eye.platform.member"})
 public class WebMvcContextConfiguration implements WebMvcConfigurer {
 
 	public static final int CACHE_PERIOD = 31556926;
