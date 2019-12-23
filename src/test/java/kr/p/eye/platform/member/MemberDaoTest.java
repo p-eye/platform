@@ -15,7 +15,7 @@ public class MemberDaoTest {
 		 MemberDao memberDao = ac.getBean(MemberDao.class);
 		 
 		/*getmember*/
-		 System.out.println(memberDao.getMember("test1"));
+		 System.out.println(memberDao.getMember("test2"));
 		 System.out.println(memberDao.getMember("tasdfsafdsadf"));
 	}
 	

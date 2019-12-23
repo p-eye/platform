@@ -32,8 +32,9 @@ public class MemberDao {
 	}
 
 	public Member getMember(String memberId) {
+		RowMapper<Member> rowMapper = BeanPropertyRowMapper.newInstance(Member.class);
 		try {
-			RowMapper<Member> rowMapper = BeanPropertyRowMapper.newInstance(Member.class);
+	
 			
 			Map<String, String> params = new HashMap<>();
 			params.put("memberId", memberId);

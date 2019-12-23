@@ -19,11 +19,11 @@ public class MemberServiceImpl implements MemberService {
 		return getMemberResponse(memberNo);
 
 	}
-
+	
 	public int insertMember(MemberRequest memberRequest) {
 		return memberDao.insertMember(memberRequest);
 	}
-
+	
 	public MemberResponse getMemberResponse(int memberNo) {
 		return memberDao.getMemberResponse(memberNo);
 	}
