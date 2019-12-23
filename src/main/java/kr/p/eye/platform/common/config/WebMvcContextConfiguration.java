@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import kr.p.eye.platform.common.error.ValidExceptionHandler;
 import kr.p.eye.platform.member.MemberApiController;
 import kr.p.eye.platform.member.MemberController;
+import kr.p.eye.platform.member.MemberInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -54,6 +56,15 @@ public class WebMvcContextConfiguration implements WebMvcConfigurer {
 		multipartResolver.setMaxUploadSize(10485760); // 1024 * 1024 * 10 (최대 10mb)
 		return multipartResolver;
 	}
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new MemberInterceptor()).addPathPatterns("/signin");
+
+
+	}
+
+	
 	
 	/*
 	 @Bean
