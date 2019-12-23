@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@ComponentScan(basePackages = {"kr.p.eye.platform.member", "kr.p.eye.platform.category"})
+@ComponentScan(basePackages = {"kr.p.eye.platform.member"})
 @Import(DBConfig.class)
 public class ApplicationConfig {
 
