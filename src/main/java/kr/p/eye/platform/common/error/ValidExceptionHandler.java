@@ -21,28 +21,30 @@ public class ValidExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
 
-		List<ErrorResponse> errors = new ArrayList<>();
+		List<Error> errors = new ArrayList<>();
 
 		for (FieldError filedError : e.getBindingResult().getFieldErrors()) {
 			logger.error("{}: {}", filedError.getField(), filedError.getDefaultMessage());
-			errors.add(new ErrorResponse(400, filedError.getField() + ": " + filedError.getDefaultMessage()));
+			errors.add(new Error(filedError.getField(), (String) filedError.getRejectedValue(),
+					filedError.getDefaultMessage()));
 		}
 
-		return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity(new ErrorResponse("Invalid Input Value", 400, errors), HttpStatus.BAD_REQUEST);
 
 	}
 
 	@ExceptionHandler(BindException.class)
 	public ResponseEntity<Object> handleBindException(BindException e) {
 
-		List<ErrorResponse> errors = new ArrayList<>();
+		List<Error> errors = new ArrayList<>();
 
 		for (FieldError filedError : e.getBindingResult().getFieldErrors()) {
 			logger.error("{}: {}", filedError.getField(), filedError.getDefaultMessage());
-			errors.add(new ErrorResponse(400, filedError.getField() + ": " + filedError.getDefaultMessage()));
+			errors.add(new Error(filedError.getField(), (String) filedError.getRejectedValue(),
+					filedError.getDefaultMessage()));
 		}
 
-		return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity(new ErrorResponse("Invalid Input Value", 400, errors), HttpStatus.BAD_REQUEST);
 
 	}
 

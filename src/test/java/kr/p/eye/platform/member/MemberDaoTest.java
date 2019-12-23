@@ -1,4 +1,4 @@
-package kr.p.eye.platform.test.dao;
+package kr.p.eye.platform.member;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

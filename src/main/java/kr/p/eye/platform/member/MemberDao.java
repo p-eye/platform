@@ -18,7 +18,6 @@ import org.springframework.stereotype.Repository;
 public class MemberDao {
 
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<Member> rowMapper = BeanPropertyRowMapper.newInstance(Member.class);
 	private SimpleJdbcInsert insertAction;
 
 	public MemberDao(DataSource dataSource) {
@@ -26,19 +25,33 @@ public class MemberDao {
 		this.insertAction = new SimpleJdbcInsert(dataSource).withTableName("member_info")
 				.usingGeneratedKeyColumns("member_no");
 	}
-		
 
 	public int insertMember(MemberRequest memberRequest) {
 		SqlParameterSource params = new BeanPropertySqlParameterSource(memberRequest);
 		return insertAction.executeAndReturnKey(params).intValue();
 	}
 
-	
 	public Member getMember(String memberId) {
 		try {
+			RowMapper<Member> rowMapper = BeanPropertyRowMapper.newInstance(Member.class);
+			
 			Map<String, String> params = new HashMap<>();
 			params.put("memberId", memberId);
 			String sql = "SELECT * FROM member_info WHERE member_id = :memberId";
+			return jdbc.queryForObject(sql, params, rowMapper);
+
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+	
+	public MemberResponse getMemberResponse(int memberNo) {
+		try {
+			RowMapper<MemberResponse> rowMapper = BeanPropertyRowMapper.newInstance(MemberResponse.class);
+			
+			Map<String, Integer> params = new HashMap<>();
+			params.put("memberNo", memberNo);
+			String sql = "SELECT * FROM member_info WHERE member_no = :memberNo";
 			return jdbc.queryForObject(sql, params, rowMapper);
 
 		} catch (EmptyResultDataAccessException e) {

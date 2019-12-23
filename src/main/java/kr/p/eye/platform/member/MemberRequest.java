@@ -9,10 +9,16 @@ public class MemberRequest {
 	
 	private int memberNo;
 	
+	@Pattern(regexp = "^[a-z0-9_-]{5,20}$",
+			message = "아이디 형식을 확인해주세요")
 	private String memberId;
 	
+	@Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$",
+			message = "비밀번호 형식을 확인해주세요")
 	private String memberPw;
-	
+
+	@Pattern(regexp = "^[가-힣]{2,4}",
+			message = "이름 형식을 확인해주세요")
 	private String memberName;
 	
 	@NotEmpty(message = "성별을 입력해주세요")
@@ -22,7 +28,8 @@ public class MemberRequest {
 			message = "연락처 형식을 확인해주세요")
 	private String memberPhone;
 
-	
+    @Pattern(regexp = "^(19|20)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$",
+    		message = "생년월일 형식을 확인해주세요")
 	private String memberBirthday;
 	
 	private LocalDateTime memberCreateDate;

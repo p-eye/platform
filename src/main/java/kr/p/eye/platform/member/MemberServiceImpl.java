@@ -1,7 +1,5 @@
 package kr.p.eye.platform.member;
 
-import java.util.regex.Pattern;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,38 +10,31 @@ public class MemberServiceImpl implements MemberService {
 	MemberDao memberDao;
 
 	@Override
-	public void isIdPassed(String memberId) {
+	public MemberResponse insertMemberRequest(MemberRequest memberRequest) {
+		if (!isIdNew(memberRequest.getMemberId()))
+			throw new MemberException(memberRequest.getMemberId(), "이미 등록된 아이디입니다");
 
-		if (!isIdValid(memberId)) {
-			// 아이디 유효성 검사
-			System.out.println("20001");
-			throw new MemberException("올바른 아이디를 입력해주세요");
-		}
+		int memberNo = insertMember(memberRequest);
 
-		if (!isIdNew(memberId)) {
-			// 아이디 중복 검사
-			System.out.println("3333");
-			throw new MemberException("이미 등록된 이메일입니다");
-		}
-
-		System.out.println("4444");
+		return getMemberResponse(memberNo);
 
 	}
 
-	public boolean isIdValid(String memberId) {
-		final String ID_EXP = "^[a-z0-9_-]{5,20}$";
-		return Pattern.matches(ID_EXP, memberId);
+	public int insertMember(MemberRequest memberRequest) {
+		return memberDao.insertMember(memberRequest);
+	}
+
+	public MemberResponse getMemberResponse(int memberNo) {
+		return memberDao.getMemberResponse(memberNo);
 	}
 
 	public boolean isIdNew(String memberId) {
 		if (memberDao.getMember(memberId) == null) {
 			return true;
-		} else
+		} else {
 			return false;
+		}
+
 	}
 
-	@Override
-	public int insertMember(MemberRequest memberRequest) {
-		return memberDao.insertMember(memberRequest);
-	}
 }

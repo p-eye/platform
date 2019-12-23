@@ -5,18 +5,18 @@ public class MemberResponse {
 	private String memberId;
 	private String memberGender;
 	private String memberPhone;
-	private String memberBirthDay;
+	private String memberBirthday;
 	private String memberCreateDate;
 
 	public MemberResponse() {
 	}
 
-	public MemberResponse(String memberId, String memberGender, String memberPhone, String memberBirthDay,
+	public MemberResponse(String memberId, String memberGender, String memberPhone, String memberBirthday,
 			String memberCreateDate) {
 		this.memberId = memberId;
 		this.memberGender = memberGender;
 		this.memberPhone = memberPhone;
-		this.memberBirthDay = memberBirthDay;
+		this.memberBirthday = memberBirthday;
 		this.memberCreateDate = memberCreateDate;
 	}
 
@@ -44,12 +44,12 @@ public class MemberResponse {
 		this.memberPhone = memberPhone;
 	}
 
-	public String getMemberBirthDay() {
-		return memberBirthDay;
+	public String getMemberBirthday() {
+		return memberBirthday;
 	}
 
-	public void setMemberBirthDay(String memberBirthDay) {
-		this.memberBirthDay = memberBirthDay;
+	public void setMemberBirthday(String memberBirthday) {
+		this.memberBirthday = memberBirthday;
 	}
 
 	public String getMemberCreateDate() {
@@ -63,7 +63,7 @@ public class MemberResponse {
 	@Override
 	public String toString() {
 		return "MemberResponse [memberId=" + memberId + ", memberGender=" + memberGender + ", memberPhone="
-				+ memberPhone + ", memberBirthDay=" + memberBirthDay + ", memberCreateDate=" + memberCreateDate + "]";
+				+ memberPhone + ", memberBirthday=" + memberBirthday + ", memberCreateDate=" + memberCreateDate + "]";
 	}
 
 }
