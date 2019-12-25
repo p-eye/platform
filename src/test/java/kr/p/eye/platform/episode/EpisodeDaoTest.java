@@ -16,7 +16,7 @@ public class EpisodeDaoTest {
 		EpisodeDao episodeDao = ac.getBean(EpisodeDao.class);
 
 		/* getEpisodeList */
-		List<Episode> episodeList = episodeDao.getEpisodeList(1);
+		List<Episode> episodeList = episodeDao.getEpisodeList(1,1,5);
 		
 		for(Episode episode: episodeList) {
 			System.out.println(episode);
