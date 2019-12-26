@@ -29,14 +29,16 @@ public class EpisodeDao {
 		String sql = 
 				"SELECT e.product_id, "
 				+"e.id AS episode_id, "
+				+"@rownum := @rownum +1 AS episode_no, "
 				+"e.episode_name, "
 				+"e.star_score, "
 				+"e.create_date "
 				+"FROM episode_info e "
 				+"INNER JOIN product p "
-				+"ON p.id = e.product_id "
+				+"ON p.id = e.product_id, "
+				+"(SELECT @rownum := 0) r "
 				+"WHERE e.product_id = :productId "
-				+"ORDER BY e.create_date DESC "
+				+"ORDER BY episode_no DESC "
 				+"limit :page, :limit";
 		
 		return jdbc.query(sql, params, BeanPropertyRowMapper.newInstance(Episode.class));

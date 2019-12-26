@@ -3,6 +3,7 @@ package kr.p.eye.platform.episode;
 public class Episode {
 	private int productId;
 	private int episodeId;
+	private int episodeNo;
 	private String episodeName;
 	private double starScore;
 	private String createDate;
@@ -10,9 +11,11 @@ public class Episode {
 	public Episode() {
 	}
 
-	public Episode(int productId, int episodeId, String episodeName, double starScore, String createDate) {
+	public Episode(int productId, int episodeId, int episodeNo, String episodeName, double starScore,
+			String createDate) {
 		this.productId = productId;
 		this.episodeId = episodeId;
+		this.episodeNo = episodeNo;
 		this.episodeName = episodeName;
 		this.starScore = starScore;
 		this.createDate = createDate;
@@ -32,6 +35,14 @@ public class Episode {
 
 	public void setEpisodeId(int episodeId) {
 		this.episodeId = episodeId;
+	}
+
+	public int getEpisodeNo() {
+		return episodeNo;
+	}
+
+	public void setEpisodeNo(int episodeNo) {
+		this.episodeNo = episodeNo;
 	}
 
 	public String getEpisodeName() {
@@ -60,8 +71,8 @@ public class Episode {
 
 	@Override
 	public String toString() {
-		return "Episode [productId=" + productId + ", episodeId=" + episodeId + ", episodeName=" + episodeName
-				+ ", starScore=" + starScore + ", createDate=" + createDate + "]";
+		return "Episode [productId=" + productId + ", episodeId=" + episodeId + ", episodeNo=" + episodeNo
+				+ ", episodeName=" + episodeName + ", starScore=" + starScore + ", createDate=" + createDate + "]";
 	}
 
 }

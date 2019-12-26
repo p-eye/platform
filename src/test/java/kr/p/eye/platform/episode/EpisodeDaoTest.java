@@ -16,14 +16,14 @@ public class EpisodeDaoTest {
 		EpisodeDao episodeDao = ac.getBean(EpisodeDao.class);
 
 		/* getEpisodeList */
-		List<Episode> episodeList = episodeDao.getEpisodeList(1,1,5);
+		List<Episode> episodeList = episodeDao.getEpisodeList(1,0,5);
 		
 		for(Episode episode: episodeList) {
 			System.out.println(episode);
 		}
 		
 		/*getEpisodeResponse*/
-		System.out.println(episodeDao.getEpisodeResponse(1));
+	//	System.out.println(episodeDao.getEpisodeResponse(1));
 	}
 
 }
