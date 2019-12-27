@@ -14,6 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import kr.p.eye.platform.category.CategoryApiController;
 import kr.p.eye.platform.category.CategoryController;
+import kr.p.eye.platform.comment.CommentApiController;
 import kr.p.eye.platform.common.error.ValidExceptionHandler;
 import kr.p.eye.platform.episode.EpisodeApiController;
 import kr.p.eye.platform.member.MemberApiController;
@@ -26,7 +27,8 @@ import kr.p.eye.platform.product.ProductApiController;
 @EnableWebMvc
 @ComponentScan(basePackageClasses = {MemberApiController.class, MemberController.class, ValidExceptionHandler.class,
 		CategoryApiController.class, CategoryController.class,
-		ProductApiController.class, EpisodeApiController.class})
+		ProductApiController.class, EpisodeApiController.class,
+		CommentApiController.class})
 public class WebMvcContextConfiguration implements WebMvcConfigurer {
 
 	public static final int CACHE_PERIOD = 31556926;

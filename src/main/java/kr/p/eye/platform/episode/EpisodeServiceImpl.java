@@ -5,11 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.p.eye.platform.comment.CommentService;
+
 @Service
 public class EpisodeServiceImpl implements EpisodeService {
 
 	@Autowired
 	EpisodeDao episodeDao;
+	
+	@Autowired
+	CommentService commentService;
 
 	@Override
 	public EpisodeResponse getEpisodeResponse(int productId, int page) {
@@ -43,5 +48,14 @@ public class EpisodeServiceImpl implements EpisodeService {
 
 	public int countEpisodes(int productId) {
 		return episodeDao.countEpisodes(productId);
+	}
+	
+	@Override
+	public EpisodeDetailResponse getEpisodeDetailResponse(int productId, int episodeNo, int commentPage) {
+		EpisodeDetailResponse episodeDetailResponse = episodeDao.getEpisodeDetailResponse(productId, episodeNo);
+		int episodeId = episodeDetailResponse.getEpisodeId();
+		episodeDetailResponse.setComments(commentService.getCommentListByDate(episodeId, commentPage));
+		
+		return episodeDetailResponse;
 	}
 }

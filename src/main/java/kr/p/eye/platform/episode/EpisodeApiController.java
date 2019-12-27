@@ -8,17 +8,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/api/list")
+@RequestMapping(path = "/api")
 @CrossOrigin
 public class EpisodeApiController {
 
 	@Autowired
 	EpisodeService episodeService;
 
-	@GetMapping(path = "/{productId}/{page}")
+	@GetMapping(path = "/list/{productId}/{page}")
 	public EpisodeResponse getEpisodeResponse(@PathVariable(name = "productId", required = true) int productId,
 			@PathVariable(name = "page", required = true) int page) {
 		return episodeService.getEpisodeResponse(productId, page);
 	}
 
+	@GetMapping(path = "detail/{productId}/{no}/{commentPage}")
+	public EpisodeDetailResponse getEpisodeDetailResponse(
+			@PathVariable(name = "productId", required = true) int productId,
+			@PathVariable(name = "no", required = true) int no,
+			@PathVariable(name = "commentPage", required = true) int commentPage) {
+
+		return episodeService.getEpisodeDetailResponse(productId, no, commentPage);
+	}
 }
