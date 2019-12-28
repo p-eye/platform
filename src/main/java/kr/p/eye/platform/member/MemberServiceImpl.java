@@ -37,4 +37,9 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
+	@Override
+	public Member getMember(String memberId) {
+		return memberDao.getMember(memberId);
+	}
+
 }

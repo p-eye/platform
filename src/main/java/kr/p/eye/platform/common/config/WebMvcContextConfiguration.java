@@ -2,7 +2,9 @@ package kr.p.eye.platform.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -12,23 +14,13 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import kr.p.eye.platform.category.CategoryApiController;
-import kr.p.eye.platform.category.CategoryController;
-import kr.p.eye.platform.comment.CommentApiController;
-import kr.p.eye.platform.common.error.ValidExceptionHandler;
-import kr.p.eye.platform.episode.EpisodeApiController;
-import kr.p.eye.platform.member.MemberApiController;
-import kr.p.eye.platform.member.MemberController;
 import kr.p.eye.platform.member.MemberInterceptor;
-import kr.p.eye.platform.product.ProductApiController;
-
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses = {MemberApiController.class, MemberController.class, ValidExceptionHandler.class,
-		CategoryApiController.class, CategoryController.class,
-		ProductApiController.class, EpisodeApiController.class,
-		CommentApiController.class})
+@ComponentScan(basePackages = "kr.p.eye.platform", useDefaultFilters = false, includeFilters = {
+		@Filter(type = FilterType.REGEX, pattern = "kr.p.eye.platform.*.*Controller"),
+		@Filter(type = FilterType.REGEX, pattern = "kr.p.eye.platform.*.*ExceptionHandler") })
 public class WebMvcContextConfiguration implements WebMvcConfigurer {
 
 	public static final int CACHE_PERIOD = 31556926;
@@ -65,25 +57,19 @@ public class WebMvcContextConfiguration implements WebMvcConfigurer {
 		multipartResolver.setMaxUploadSize(10485760); // 1024 * 1024 * 10 (최대 10mb)
 		return multipartResolver;
 	}
-	
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new MemberInterceptor()).addPathPatterns("/signin");
 
-
 	}
 
-	
-	
 	/*
-	 @Bean
-	  public WebMvcConfigurer corsConfigurer() {
-	    return new WebMvcConfigurer() {
-	      @Override
-	      public void addCorsMappings(CorsRegistry registry) {
-	        registry.addMapping("/api/**").allowedOrigins("http://localhost:8080");
-	      }
-	    };
-	  }
-	  */
+	 * @Bean public WebMvcConfigurer corsConfigurer() { return new
+	 * WebMvcConfigurer() {
+	 * 
+	 * @Override public void addCorsMappings(CorsRegistry registry) {
+	 * registry.addMapping("/api/**").allowedOrigins("http://localhost:8080"); } };
+	 * }
+	 */
 }

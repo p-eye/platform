@@ -12,7 +12,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 
 	@Autowired
 	EpisodeDao episodeDao;
-	
+
 	@Autowired
 	CommentService commentService;
 
@@ -25,6 +25,9 @@ public class EpisodeServiceImpl implements EpisodeService {
 		return episodeResponse;
 
 	}
+	
+
+	
 
 	public EpisodeResponse createEpisodeResponse(int productId) {
 		return episodeDao.getEpisodeResponse(productId);
@@ -33,13 +36,11 @@ public class EpisodeServiceImpl implements EpisodeService {
 	public List<Episode> getEpisodeList(int productId, int page) {
 		int lastPage = (int) Math.ceil((double) countEpisodes(productId) / EPISODE_PER_PAGE);
 
-		if (page < 1) {
+		if (page < 1)
 			page = 1;
-		}
 
-		else if (page > lastPage) {
+		else if (page > lastPage)
 			page = lastPage;
-		}
 
 		page = (page - 1) * EPISODE_PER_PAGE;
 
@@ -49,13 +50,31 @@ public class EpisodeServiceImpl implements EpisodeService {
 	public int countEpisodes(int productId) {
 		return episodeDao.countEpisodes(productId);
 	}
-	
+
 	@Override
 	public EpisodeDetailResponse getEpisodeDetailResponse(int productId, int episodeNo, int commentPage) {
 		EpisodeDetailResponse episodeDetailResponse = episodeDao.getEpisodeDetailResponse(productId, episodeNo);
 		int episodeId = episodeDetailResponse.getEpisodeId();
 		episodeDetailResponse.setComments(commentService.getCommentListByDate(episodeId, commentPage));
-		
+
 		return episodeDetailResponse;
 	}
+
+
+
+
+	@Override
+	public EpisodeDetailResponse getEpisodeDetailResponseLogin(int memberNo, int productId, int episodeNo,
+			int commentPage) {
+		EpisodeDetailResponse episodeDetailResponse = episodeDao.getEpisodeDetailResponse(productId, episodeNo);
+		int episodeId = episodeDetailResponse.getEpisodeId();
+		episodeDetailResponse.setComments(commentService.getCommentListByDateLogin(memberNo, episodeId, commentPage));
+
+		return episodeDetailResponse;
+	}
+	
+
+	
+
+
 }

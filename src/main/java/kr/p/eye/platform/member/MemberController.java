@@ -39,7 +39,7 @@ public class MemberController {
 			return;
 		}
 
-		model.addAttribute("memberId", memberId);
+		model.addAttribute("member", memberRequest);
 
 	}
 }

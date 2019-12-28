@@ -15,27 +15,12 @@ public class Error {
 		this.reason = reason;
 	}
 
-	public String getField() {
-		return field;
-	}
-
-	public void setField(String field) {
-		this.field = field;
-	}
-
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
+	public Error(String value, String reason) {
 		this.value = value;
+		this.reason = reason;
 	}
 
-	public String getReason() {
-		return reason;
-	}
-
-	public void setReason(String reason) {
+	public Error(String reason) {
 		this.reason = reason;
 	}
 

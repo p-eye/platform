@@ -1,9 +1,8 @@
 package kr.p.eye.platform.comment;
 
-public class Comment {
+public class CommentResponse {
 
 	private int commentId;
-	private int episodeId;
 	private String commentWriter;
 	private String comment;
 	private int upCount;
@@ -12,13 +11,12 @@ public class Comment {
 	private boolean down;
 	private String createDate;
 
-	public Comment() {
+	public CommentResponse() {
 	}
 
-	public Comment(int commentId, int episodeId, String commentWriter, String comment, int upCount, int downCount,
-			boolean up, boolean down, String createDate) {
+	public CommentResponse(int commentId, String commentWriter, String comment, int upCount, int downCount, boolean up,
+			boolean down, String createDate) {
 		this.commentId = commentId;
-		this.episodeId = episodeId;
 		this.commentWriter = commentWriter;
 		this.comment = comment;
 		this.upCount = upCount;
@@ -34,14 +32,6 @@ public class Comment {
 
 	public void setCommentId(int commentId) {
 		this.commentId = commentId;
-	}
-
-	public int getEpisodeId() {
-		return episodeId;
-	}
-
-	public void setEpisodeId(int episodeId) {
-		this.episodeId = episodeId;
 	}
 
 	public String getCommentWriter() {
@@ -102,9 +92,9 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [commentId=" + commentId + ", episodeId=" + episodeId + ", commentWriter=" + commentWriter
-				+ ", comment=" + comment + ", upCount=" + upCount + ", downCount=" + downCount + ", up=" + up
-				+ ", down=" + down + ", createDate=" + createDate + "]";
+		return "CommentResponse [commentId=" + commentId + ", commentWriter=" + commentWriter + ", comment=" + comment
+				+ ", upCount=" + upCount + ", downCount=" + downCount + ", up=" + up + ", down=" + down
+				+ ", createDate=" + createDate + "]";
 	}
 
 }

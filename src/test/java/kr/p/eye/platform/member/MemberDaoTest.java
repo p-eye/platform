@@ -17,6 +17,8 @@ public class MemberDaoTest {
 		/*getmember*/
 		 System.out.println(memberDao.getMember("test2"));
 		 System.out.println(memberDao.getMember("tasdfsafdsadf"));
+		 
+
 	}
 	
 

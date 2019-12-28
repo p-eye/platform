@@ -11,9 +11,11 @@ public interface CommentService {
 	public static final Integer PAGE_RANGE = 6;
 	
 	public List<Comment> getCommentListByDate(int episodeId, int page);
+	public List<Comment> getCommentListByDateLogin(int memberNo, int episodeId, int page);
 
-	public int thumbsupComment(int commentId);
-	
-	public int thumbsdownComment(int commentId);
+
+	public CommentResponse upComment(int commentId, int memberNo);
+	public CommentResponse downComment(int commentId, int memberNo);
+
 
 }

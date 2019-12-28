@@ -10,7 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class MemberInterceptor extends HandlerInterceptorAdapter {
+public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 	private static final String LOGIN = "login";
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -37,13 +37,13 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 			ModelAndView modelAndView) throws Exception {
 
 		ModelMap modelMap = modelAndView.getModelMap();
-		MemberRequest memberRequest = (MemberRequest) modelMap.get("member");
+		String memberId = (String) modelMap.get("memberId");
 
 		// 로그인 성공시
-		if (memberRequest != null) {
+		if (memberId != null) {
 
 			HttpSession httpSession = request.getSession();
-			httpSession.setAttribute(LOGIN, memberRequest);
+			httpSession.setAttribute(LOGIN, memberId);
 
 			response.sendRedirect("./");
 

@@ -13,7 +13,7 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
   </head>
   <body>
     <nav class="navbar nav-global nav-global-center navbar-expand-sm">
@@ -133,7 +133,7 @@
         </div>
 
         <button class="btn btn-block btn-primary">가입하기</button>
-        <a href="signin.html" class="btn btn-block btn-light">로그인</a>
+        <a href="./signinForm" class="btn btn-block btn-light">로그인</a>
       </form>
     </div>
     <script src="./js/signup.js"></script>

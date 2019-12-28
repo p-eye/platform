@@ -6,5 +6,8 @@ import org.springframework.stereotype.Service;
 public interface MemberService {
 
 	public MemberResponse insertMemberRequest(MemberRequest memberRequest);
+	
+	public Member getMember(String memberId);
+	
 
 }
