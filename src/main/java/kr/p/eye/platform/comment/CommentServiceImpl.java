@@ -38,8 +38,11 @@ public class CommentServiceImpl implements CommentService {
 	}
 	
 	@Override
-	public int insertComment(CommentRequest commentRequest) {
-		return commentDao.insertComment(commentRequest);
+	public CommentResponse insertComment(CommentRequest commentRequest) {
+		int commentId = commentDao.insertComment(commentRequest);
+		int memberNo = commentRequest.getMemberNo();
+		
+		return getCommentResponse(commentId, memberNo);
 	}
 
 	@Override
@@ -107,5 +110,9 @@ public class CommentServiceImpl implements CommentService {
 		commentResponse.setDown(isMemberThumbsDown(commentId, memberNo));
 		return commentResponse;
 	}
-
+	
+	@Override
+	public int countCommentList(int episodeId){
+		return commentDao.countCommentList(episodeId);
+	}
 }

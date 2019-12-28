@@ -726,15 +726,11 @@ table.viewList td.num {
 
 .u_cbox .u_cbox_write {
   position: relative;
-}
-
-.u_cbox .u_cbox_write .u_cbox_write_inner {
-  position: relative;
   background-color: #fff;
   border: 1px solid #b3b3b3;
 }
 
-.u_cbox .u_cbox_write .u_cbox_inbox .u_cbox_text {
+.u_cbox .u_cbox_write .u_cbox_text {
   display: block;
   overflow-x: hidden;
   overflow-y: auto;

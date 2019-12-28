@@ -27,7 +27,12 @@ public class CommentDaoTest {
 		 commentUpDao.insertCommentUp(5, 17);
 		 */
 		 
-		 System.out.println(commentDao.getComment(3));
+		 /*getCommentResponse*/
+		 System.out.println(commentDao.getCommentResponse(3));
+		 
+		 /*countCommentList*/
+		 System.out.println(commentDao.countCommentList(94));
+		 
 	}
 
 }

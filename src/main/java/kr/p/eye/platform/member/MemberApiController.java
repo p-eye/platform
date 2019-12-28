@@ -1,5 +1,7 @@
 package kr.p.eye.platform.member;
 
+import java.util.HashMap;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,11 @@ public class MemberApiController {
 	public ResponseEntity<?> signupMember(@RequestBody @Valid MemberRequest memberRequest) {
 
 		MemberResponse memberResponse = memberService.insertMemberRequest(memberRequest);
-		return new ResponseEntity<>(new Response(memberResponse, "가입에 성공하였습니다."), HttpStatus.OK);
+
+		HashMap<String, Object> result = new HashMap<>();
+		result.put("member", memberResponse);
+
+		return new ResponseEntity<>(new Response(result, "가입에 성공하였습니다."), HttpStatus.OK);
 
 	}
 }

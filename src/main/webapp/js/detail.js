@@ -57,9 +57,16 @@ document.addEventListener("DOMContentLoaded", function() {
   const Comment = function() {};
 
   Comment.prototype = {
-    registerEvent: function() {
-      const commentBtn = document.querySelector(".u_cbox_btn_upload");
-      commentBtn.addEventListener("click", Comment.prototype.clickCommentBtn);
+    episodeId: "",
+
+    initCommentList: function() {
+      const commentList = document.querySelectorAll(
+        ".u_cbox_list .u_cbox_comment"
+      );
+
+      commentList.forEach(function(comment) {
+        comment.parentNode.removeChild(comment);
+      });
     },
 
     setCommentData: function(commentData) {
@@ -71,21 +78,51 @@ document.addEventListener("DOMContentLoaded", function() {
 
       document.querySelector(".u_cbox_count").innerHTML =
         commentData.commentCount;
+
+      Comment.prototype.episodeId = commentData.episodeId;
+      Comment.prototype.registerEvent();
+    },
+
+    registerEvent: function() {
+      const commentBtn = document.querySelector(".u_cbox_btn_upload");
+      commentBtn.addEventListener("click", Comment.prototype.clickCommentBtn);
+    },
+
+    clickCommentBtn() {
+      const commentFormData = new FormData(document.querySelector(".form"));
+      let oReq = new XMLHttpRequest();
+      oReq.open(
+        "POST",
+        "http://localhost:8080/platform/api/comments/" +
+          Comment.prototype.episodeId
+      );
+
+      oReq.addEventListener("load", function() {
+        const jsonData = JSON.parse(oReq.responseText);
+        if (oReq.status === 200) {
+          document.querySelector("textarea").value = "";
+          Comment.prototype.refreshCommentList(jsonData.result);
+        } else if (oReq.status !== 200) {
+          alert("Request failed.  Returned status of " + oReq.status);
+        }
+      });
+
+      oReq.send(commentFormData);
+    },
+
+    refreshCommentList(commentData) {
+      Comment.prototype.initCommentList();
+
+      addTemplate(
+        document.querySelector("#commentList"),
+        document.querySelector(".u_cbox_list"),
+        commentData
+      );
+
+      document.querySelector(".u_cbox_count").innerHTML =
+        commentData.commentCount;
     }
   };
-
-  function clickCommentBtn() {
-    console.log("test");
-    const myForm = document.querySelector(".u_cbox_write_wrap form");
-    console.log(myForm);
-
-    var object = {};
-    new FormData(myForm).forEach(function(value, key) {
-      object[key] = value;
-    });
-    var json = JSON.stringify(object);
-    console.log(json);
-  }
 
   const CommentUpDownBtn = function() {
     this.registerEvent();
@@ -151,15 +188,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     refreshCommentOne: function(targetType, targetCount, commentData) {
       if (targetType === "up") {
-        targetCount.innerHTML = commentData.data.upCount;
-        if (commentData.data.up === true) {
+        targetCount.innerHTML = commentData.result.comment.upCount;
+        if (commentData.result.comment.up === true) {
           ClassName.prototype.addClass(targetCount.parentNode, "on");
         } else {
           ClassName.prototype.removeClass(targetCount.parentNode, "on");
         }
       } else if (targetType === "down") {
-        targetCount.innerHTML = commentData.data.downCount;
-        if (commentData.data.down === true) {
+        targetCount.innerHTML = commentData.result.comment.downCount;
+        if (commentData.result.comment.down === true) {
           ClassName.prototype.addClass(targetCount.parentNode, "on");
         } else {
           ClassName.prototype.removeClass(targetCount.parentNode, "on");

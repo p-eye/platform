@@ -105,34 +105,30 @@
               </button>
             </div>
             <div class="u_cbox_write_wrap">
-              <div class="u_cbox_write_box u_cbox_type_logged_out">
-                <form>
-                  <fieldset>
-                    <div class="u_cbox_write">
-                      <div class="u_cbox_write_inner">
-                        <div class="u_cbox_write_area">
-                          <div class="u_cbox_inbox">
-                            <textarea
-                              id="cbox_module__write_textarea"
-                              class="u_cbox_text"
-                              rows="3"
-                              cols="30"
-                            ></textarea>
-                          </div>
-                        </div>
-                        <div class="u_cbox_write_count">
-                          <strong class="u_cbox_count_num">0</strong>
-                          /
-                          <span class="u_cbox_write_total">500</span>
-                        </div>
-                        <div class="u_cbox_upload">
-                          <button type="button" class="u_cbox_btn_upload">
-                            <span class="u_cbox_txt_upload">등록</span>
-                          </button>
-                        </div>
-                      </div>
+              <div class="u_cbox_write_box">
+                <form class="form">
+                  <div class="u_cbox_write">
+                    <div class="u_cbox_write_area">
+                      <textarea
+                        id="cbox_module__write_textarea"
+                        name="commentContent"
+                        class="u_cbox_text"
+                        rows="3"
+                        cols="30"
+                      ></textarea>
                     </div>
-                  </fieldset>
+                    <div class="u_cbox_write_count">
+                      <strong class="u_cbox_count_num">0</strong>/<span
+                        class="u_cbox_write_total"
+                        >500</span
+                      >
+                    </div>
+                    <div class="u_cbox_upload">
+                      <button type="button" class="u_cbox_btn_upload">
+                        <span class="u_cbox_txt_upload">등록</span>
+                      </button>
+                    </div>
+                  </div>
                 </form>
               </div>
             </div>
@@ -222,7 +218,7 @@
       </div>
     </script>
     <script type="rv-template" id="commentList">
-        {{#each comments}}
+        {{#each commentList}}
         <li class="u_cbox_comment" comment-id={{commentId}}>
         <div class="u_cbox_comment_box">
           <div class="u_cbox_area">
@@ -241,11 +237,11 @@
             </div>
 
               <div class="u_cbox_recomm_set">
-                <a href="javascript:;" class="u_cbox_btn_recomm{{#if up}} on{{/if}}">
+                <a href="javascirpt:;" class="u_cbox_btn_recomm{{#if up}} on{{/if}}">
                   <span class="u_cbox_ico_recomm">좋아요</span>
                   <em class="u_cbox_cnt_recomm">{{upCount}}</em>
                 </a>
-                <a href="javascript:;" class="u_cbox_btn_unrecomm{{#if down}} on{{/if}}">
+                <a href="javascirpt:;" class="u_cbox_btn_unrecomm{{#if down}} on{{/if}}">
                   <span class="u_cbox_ico_unrecomm">싫어요</span>
                   <em class="u_cbox_cnt_unrecomm">{{downCount}}</em>
                 </a>
@@ -257,3 +253,4 @@
     </script>
   </body>
 </html>
+

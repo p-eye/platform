@@ -1,5 +1,7 @@
 package kr.p.eye.platform.comment;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -36,7 +38,10 @@ public class CommentApiController {
 
 		int loggedMemberNo = memberDao.getMember(memberRequest.getMemberId()).getMemberNo();
 		CommentResponse commentResponse = commentService.upComment(commentId, loggedMemberNo);
-		return new ResponseEntity<>(new Response(commentResponse, "요청을 성공적으로 처리하였습니다"), HttpStatus.OK);
+
+		HashMap<String, Object> result = new HashMap<>();
+		result.put("comment", commentResponse);
+		return new ResponseEntity<>(new Response(result, "요청을 성공적으로 처리하였습니다"), HttpStatus.OK);
 	}
 
 	@PostMapping(path = "/{commentId}/down")
@@ -46,14 +51,28 @@ public class CommentApiController {
 
 		int loggedMemberNo = memberDao.getMember(memberRequest.getMemberId()).getMemberNo();
 		CommentResponse commentResponse = commentService.downComment(commentId, loggedMemberNo);
-		return new ResponseEntity<>(new Response(commentResponse, "요청을 성공적으로 처리하였습니다"), HttpStatus.OK);
+
+		HashMap<String, Object> result = new HashMap<>();
+		result.put("comment", commentResponse);
+		return new ResponseEntity<>(new Response(result, "요청을 성공적으로 처리하였습니다"), HttpStatus.OK);
 	}
 
 	@PostMapping(path = "/{episodeId}")
-	public void postComment(CommentRequest commentRequest) {
-		System.out.println(commentRequest);
-		commentRequest.setCommentWriter("zzdsfsafd");
-		commentService.insertComment(commentRequest);
+	public ResponseEntity<?> postComment(CommentRequest commentRequest, HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		MemberRequest memberRequest = (MemberRequest) session.getAttribute(LOGIN);
+
+		 int loggedMemberNo =
+		 memberDao.getMember(memberRequest.getMemberId()).getMemberNo();
+		commentRequest.setMemberNo(loggedMemberNo);
+
+		HashMap<String, Object> result = new HashMap<>();
+		result.put("comment", commentService.insertComment(commentRequest));
+		result.put("commentList", commentService.getCommentListByDateLogin(commentRequest.getMemberNo(), commentRequest.getEpisodeId(), 0));
+		result.put("commentCount", commentService.countCommentList(commentRequest.getEpisodeId()));
+		
+		return new ResponseEntity<>(new Response(result, "요청을 성공적으로 처리하였습니다"), HttpStatus.OK);
 	}
 
 }

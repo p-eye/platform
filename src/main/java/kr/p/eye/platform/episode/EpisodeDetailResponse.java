@@ -16,14 +16,14 @@ public class EpisodeDetailResponse {
 	private double starScore;
 	private String createDate;
 	private int commentCount;
-	private List<Comment> comments;
+	private List<Comment> commentList;
 
 	public EpisodeDetailResponse() {
 	}
 
 	public EpisodeDetailResponse(int productId, int episodeId, int episodeNo, String title, String content,
 			String writer, String episodeName, double starScore, String createDate, int commentCount,
-			List<Comment> comments) {
+			List<Comment> commentList) {
 		this.productId = productId;
 		this.episodeId = episodeId;
 		this.episodeNo = episodeNo;
@@ -34,7 +34,7 @@ public class EpisodeDetailResponse {
 		this.starScore = starScore;
 		this.createDate = createDate;
 		this.commentCount = commentCount;
-		this.comments = comments;
+		this.commentList = commentList;
 	}
 
 	public int getProductId() {
@@ -117,12 +117,12 @@ public class EpisodeDetailResponse {
 		this.commentCount = commentCount;
 	}
 
-	public List<Comment> getComments() {
-		return comments;
+	public List<Comment> getCommentList() {
+		return commentList;
 	}
 
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
+	public void setCommentList(List<Comment> commentList) {
+		this.commentList = commentList;
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public class EpisodeDetailResponse {
 		return "EpisodeDetailResponse [productId=" + productId + ", episodeId=" + episodeId + ", episodeNo=" + episodeNo
 				+ ", title=" + title + ", content=" + content + ", writer=" + writer + ", episodeName=" + episodeName
 				+ ", starScore=" + starScore + ", createDate=" + createDate + ", commentCount=" + commentCount
-				+ ", comments=" + comments + "]";
+				+ ", commentList=" + commentList + "]";
 	}
 
 }

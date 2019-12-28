@@ -56,7 +56,7 @@
         </div>
           <span class="error_message" id="loginMsg">${errorMsg}</span>        
         <button class="btn btn-block btn-primary">로그인 하기</button>
-        <a href="signup.html" class="btn btn-block btn-light">계정 만들기</a>
+        <a href="./signup" class="btn btn-block btn-light">계정 만들기</a>
       </form>
     </div>
 

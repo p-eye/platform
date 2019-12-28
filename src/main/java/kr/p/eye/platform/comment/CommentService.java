@@ -18,6 +18,8 @@ public interface CommentService {
 
 	public CommentResponse downComment(int commentId, int memberNo);
 
-	public int insertComment(CommentRequest commentRequest);
+	public CommentResponse insertComment(CommentRequest commentRequest);
+
+	public int countCommentList(int episodeId);
 
 }

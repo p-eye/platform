@@ -1,24 +1,26 @@
 package kr.p.eye.platform.common.response;
 
+import java.util.HashMap;
+
 public class Response<T> {
 
-	private T data;
+	private HashMap<String, ?> result;
 	private String message;
 
 	public Response() {
 	}
 
-	public Response(T data, String message) {
-		this.data = data;
+	public Response(HashMap<String, ?> result, String message) {
+		this.result = result;
 		this.message = message;
 	}
 
-	public T getData() {
-		return data;
+	public HashMap<String, ?> getResult() {
+		return result;
 	}
 
-	public void setData(T data) {
-		this.data = data;
+	public void setResult(HashMap<String, ?> result) {
+		this.result = result;
 	}
 
 	public String getMessage() {
@@ -31,7 +33,7 @@ public class Response<T> {
 
 	@Override
 	public String toString() {
-		return "Response [data=" + data + ", message=" + message + "]";
+		return "Response [result=" + result + ", message=" + message + "]";
 	}
 
 }

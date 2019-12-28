@@ -32,10 +32,10 @@ public class CommentDao {
 		params.put("page", page);
 		params.put("limit", limit);
 
-		String sql = "SELECT c.id AS comment_id, " + "c.episode_id, " + "c.comment_writer, "
+		String sql = "SELECT c.id AS comment_id, " + "c.episode_id, " + "m.member_id AS comment_writer, "
 				+ "c.comment_content AS comment, " + "c.up_count, " + "c.down_count, " + "c.create_date "
-				+ "FROM episode_comment c " + "WHERE c.episode_id = :episodeId " + "ORDER BY c.comment_like DESC "
-				+ "limit :page, :limit";
+				+ "FROM episode_comment c " + "INNER JOIN member_info m " + "ON c.member_no = m.member_no "
+				+ "WHERE c.episode_id = :episodeId " + "ORDER BY c.up_count DESC " + "limit :page, :limit";
 
 		return jdbc.query(sql, params, BeanPropertyRowMapper.newInstance(Comment.class));
 	}
@@ -46,10 +46,10 @@ public class CommentDao {
 		params.put("page", page);
 		params.put("limit", limit);
 
-		String sql = "SELECT c.id AS comment_id, " + "c.episode_id, " + "c.comment_writer, "
+		String sql = "SELECT c.id AS comment_id, " + "c.episode_id, " + "m.member_id AS comment_writer, "
 				+ "c.comment_content AS comment, " + "c.up_count, " + "c.down_count, " + "c.create_date "
-				+ "FROM episode_comment c " + "WHERE c.episode_id = :episodeId " + "ORDER BY c.create_date DESC "
-				+ "limit :page, :limit";
+				+ "FROM episode_comment c " + "INNER JOIN member_info m " + "ON c.member_no = m.member_no "
+				+ "WHERE c.episode_id = :episodeId " + "ORDER BY c.create_date DESC " + "limit :page, :limit";
 
 		return jdbc.query(sql, params, BeanPropertyRowMapper.newInstance(Comment.class));
 	}
@@ -114,18 +114,31 @@ public class CommentDao {
 		try {
 			Map<String, Integer> params = new HashMap<>();
 			params.put("commentId", commentId);
-			String sql = "SELECT c.id AS comment_id, " + "c.episode_id, " + "c.comment_writer, "
+			String sql = "SELECT c.id AS comment_id, " + "c.episode_id, " + "m.member_id AS comment_writer, "
 					+ "c.comment_content AS comment, " + "c.up_count, " + "c.down_count, " + "c.create_date "
-					+"FROM episode_comment c "
+					+ "FROM episode_comment c " + "INNER JOIN member_info m " + "ON c.member_no = m.member_no "
 					+ "WHERE id = :commentId";
 			return jdbc.queryForObject(sql, params, BeanPropertyRowMapper.newInstance(CommentResponse.class));
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
 	}
-	
+
 	public int insertComment(CommentRequest commentRequest) {
 		SqlParameterSource params = new BeanPropertySqlParameterSource(commentRequest);
 		return insertAction.executeAndReturnKey(params).intValue();
+	}
+
+	public int countCommentList(int episodeId) {
+		try {
+			Map<String, Integer> params = new HashMap<>();
+			params.put("episodeId", episodeId);
+			String sql = "SELECT " + "count(c.id) AS comment_count " + "FROM episode_comment c "
+					+ "WHERE episode_id = :episodeId " + "GROUP BY c.episode_id";
+
+			return jdbc.queryForObject(sql, params, Integer.class);
+		} catch (EmptyResultDataAccessException e) {
+			return 0;
+		}
 	}
 }

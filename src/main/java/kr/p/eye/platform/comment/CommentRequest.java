@@ -6,7 +6,7 @@ public class CommentRequest {
 
 	private int id;
 	private int episodeId;
-	private String commentWriter;
+	private int memberNo;
 	private String commentContent;
 	private int upCount;
 	private int downCount;
@@ -18,11 +18,11 @@ public class CommentRequest {
 		modifyDate = LocalDateTime.now();
 	}
 
-	public CommentRequest(int id, int episodeId, String commentWriter, String commentContent, int upCount,
-			int downCount, LocalDateTime createDate, LocalDateTime modifyDate) {
+	public CommentRequest(int id, int episodeId, int memberNo, String commentContent, int upCount, int downCount,
+			LocalDateTime createDate, LocalDateTime modifyDate) {
 		this.id = id;
 		this.episodeId = episodeId;
-		this.commentWriter = commentWriter;
+		this.memberNo = memberNo;
 		this.commentContent = commentContent;
 		this.upCount = upCount;
 		this.downCount = downCount;
@@ -46,12 +46,12 @@ public class CommentRequest {
 		this.episodeId = episodeId;
 	}
 
-	public String getCommentWriter() {
-		return commentWriter;
+	public int getMemberNo() {
+		return memberNo;
 	}
 
-	public void setCommentWriter(String commentWriter) {
-		this.commentWriter = commentWriter;
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 
 	public String getCommentContent() {
@@ -96,9 +96,9 @@ public class CommentRequest {
 
 	@Override
 	public String toString() {
-		return "CommentRequest [id=" + id + ", episodeId=" + episodeId + ", commentWriter=" + commentWriter
-				+ ", commentContent=" + commentContent + ", upCount=" + upCount + ", downCount=" + downCount
-				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
+		return "CommentRequest [id=" + id + ", episodeId=" + episodeId + ", memberNo=" + memberNo + ", commentContent="
+				+ commentContent + ", upCount=" + upCount + ", downCount=" + downCount + ", createDate=" + createDate
+				+ ", modifyDate=" + modifyDate + "]";
 	}
 
 }
