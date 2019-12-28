@@ -242,11 +242,11 @@
 
               <div class="u_cbox_recomm_set">
                 <a href="javascript:;" class="u_cbox_btn_recomm{{#if up}} on{{/if}}">
-                  <span class="u_cbox_ico_recomm">좋아요{{#if up}} on{{/if}}</span>
+                  <span class="u_cbox_ico_recomm">좋아요</span>
                   <em class="u_cbox_cnt_recomm">{{upCount}}</em>
                 </a>
                 <a href="javascript:;" class="u_cbox_btn_unrecomm{{#if down}} on{{/if}}">
-                  <span class="u_cbox_ico_unrecomm">싫어요{{#if down}} on{{/if}}</span>
+                  <span class="u_cbox_ico_unrecomm">싫어요</span>
                   <em class="u_cbox_cnt_unrecomm">{{downCount}}</em>
                 </a>
               </div>

@@ -116,6 +116,15 @@ document.addEventListener("DOMContentLoaded", function() {
         event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
     }
 
+    let targetCount = "";
+    if (event.target.tagName === "A") {
+      targetCount = event.target.children[1];
+    } else if (event.target.tagName === "EM") {
+      targetCount = event.target;
+    } else if (event.target.tagName === "SPAN") {
+      targetCount = event.target.nextElementSibling;
+    }
+
     const commentId = targetEl.getAttribute("comment-id");
 
     console.log(commentId);
@@ -125,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function() {
     oReq.addEventListener("load", function() {
       const jsonData = JSON.parse(oReq.responseText);
       console.log(jsonData);
+      refreshCommentOne(targetCount, jsonData);
     });
 
     oReq.open(
@@ -132,6 +142,17 @@ document.addEventListener("DOMContentLoaded", function() {
       "http://localhost:8080/platform/api/comments/" + commentId + "/up"
     );
     oReq.send();
+  }
+
+  function refreshCommentOne(targetCount, jsonData) {
+    targetCount.innerHTML = jsonData.data.upCount;
+    console.log(targetCount.parentNode);
+    console.log(jsonData.data.up);
+    if (jsonData.data.up === true) {
+      ClassName.prototype.addClass(targetCount.parentNode, "on");
+    } else {
+      ClassName.prototype.removeClass(targetCount.parentNode, "on");
+    }
   }
 
   function clickDownBtn() {
@@ -143,6 +164,15 @@ document.addEventListener("DOMContentLoaded", function() {
         event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
     }
 
+    let targetCount = "";
+    if (event.target.tagName === "A") {
+      targetCount = event.target.children[1];
+    } else if (event.target.tagName === "EM") {
+      targetCount = event.target;
+    } else if (event.target.tagName === "SPAN") {
+      targetCount = event.target.nextElementSibling;
+    }
+
     const commentId = targetEl.getAttribute("comment-id");
 
     console.log(commentId);
@@ -151,7 +181,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     oReq.addEventListener("load", function() {
       const jsonData = JSON.parse(oReq.responseText);
-      consoe.log(jsonData);
+      console.log(jsonData);
+      refreshCommentOneDown(targetCount, jsonData);
     });
 
     oReq.open(
@@ -159,6 +190,16 @@ document.addEventListener("DOMContentLoaded", function() {
       "http://localhost:8080/platform/api/comments/" + commentId + "/down"
     );
     oReq.send();
+  }
+
+  function refreshCommentOneDown(targetCount, jsonData) {
+    targetCount.innerHTML = jsonData.data.upCount;
+    console.log(targetCount.parentNode);
+    if (jsonData.data.down === true) {
+      ClassName.prototype.addClass(targetCount.parentNode, "on");
+    } else {
+      ClassName.prototype.removeClass(targetCount.parentNode, "on");
+    }
   }
 
   initJS();

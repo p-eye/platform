@@ -29,7 +29,7 @@ public class CommentServiceImpl implements CommentService {
 	public List<Comment> getCommentListByDateLogin(int memberNo, int episodeId, int page) {
 		List<Comment> commentList = commentDao.getCommentListByDate(episodeId, page, COMMENT_PER_PAGE);
 		for (Comment comment : commentList) {
-			int commentId = comment.getCommentId();
+			int commentId = comment.getCommentId();	
 			comment.setUp(isMemberThumbsUp(commentId, memberNo));
 			comment.setDown(isMemberThumbsDown(commentId, memberNo));
 		}
@@ -40,13 +40,13 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public CommentResponse upComment(int commentId, int memberNo) {
 		thumbsUpComment(commentId, memberNo);
-		return getCommentResponse(commentId);
+		return getCommentResponse(commentId, memberNo);
 	}
 
 	@Override
 	public CommentResponse downComment(int commentId, int memberNo) {
 		thumbsDownComment(commentId, memberNo);
-		return getCommentResponse(commentId);
+		return getCommentResponse(commentId, memberNo);
 	}
 
 	public int thumbsUpComment(int commentId, int memberNo) {
@@ -73,6 +73,9 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	public boolean isMemberThumbsUp(int commentId, int memberNo) {
+		System.out.println(commentId);
+		System.out.println(memberNo);
+		System.out.println(commentDao.isMemberThumbsUp(commentId, memberNo));
 		if (commentDao.isMemberThumbsUp(commentId, memberNo) == 0) {
 			return false;
 		} else {
@@ -88,8 +91,11 @@ public class CommentServiceImpl implements CommentService {
 		}
 	}
 
-	public CommentResponse getCommentResponse(int commentId) {
-		return commentDao.getCommentResponse(commentId);
+	public CommentResponse getCommentResponse(int commentId, int memberNo) {
+		CommentResponse commentResponse = commentDao.getCommentResponse(commentId);
+		commentResponse.setUp(isMemberThumbsUp(commentId, memberNo));
+		commentResponse.setDown(isMemberThumbsDown(commentId, memberNo));
+		return commentResponse;
 	}
 
 }

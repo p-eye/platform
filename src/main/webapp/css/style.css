@@ -860,11 +860,11 @@ table.viewList td.num {
   font-size: 13px;
 }
 
-.u_cbox .u_cbox_recomm_set.on {
+.u_cbox .u_cbox_btn_recomm.on {
   border-color: #ff5151;
 }
 
-.u_cbox .u_cbox_recomm_set.on {
+.u_cbox .u_cbox_btn_unrecomm.on {
   border-color: #385da3;
 }
 
