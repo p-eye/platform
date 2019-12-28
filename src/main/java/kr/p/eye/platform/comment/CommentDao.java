@@ -8,16 +8,22 @@ import javax.sql.DataSource;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class CommentDao {
 
 	private NamedParameterJdbcTemplate jdbc;
+	private SimpleJdbcInsert insertAction;
 
 	public CommentDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+		this.insertAction = new SimpleJdbcInsert(dataSource).withTableName("episode_comment")
+				.usingGeneratedKeyColumns("id");
 	}
 
 	public List<Comment> getCommentListByBest(int episodeId, int page, int limit) {
@@ -116,5 +122,10 @@ public class CommentDao {
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
+	}
+	
+	public int insertComment(CommentRequest commentRequest) {
+		SqlParameterSource params = new BeanPropertySqlParameterSource(commentRequest);
+		return insertAction.executeAndReturnKey(params).intValue();
 	}
 }

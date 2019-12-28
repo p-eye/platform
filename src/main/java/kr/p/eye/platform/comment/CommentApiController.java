@@ -48,4 +48,12 @@ public class CommentApiController {
 		CommentResponse commentResponse = commentService.downComment(commentId, loggedMemberNo);
 		return new ResponseEntity<>(new Response(commentResponse, "요청을 성공적으로 처리하였습니다"), HttpStatus.OK);
 	}
+
+	@PostMapping(path = "/{episodeId}")
+	public void postComment(CommentRequest commentRequest) {
+		System.out.println(commentRequest);
+		commentRequest.setCommentWriter("zzdsfsafd");
+		commentService.insertComment(commentRequest);
+	}
+
 }

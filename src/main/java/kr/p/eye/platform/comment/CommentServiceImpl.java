@@ -36,6 +36,11 @@ public class CommentServiceImpl implements CommentService {
 
 		return commentList;
 	}
+	
+	@Override
+	public int insertComment(CommentRequest commentRequest) {
+		return commentDao.insertComment(commentRequest);
+	}
 
 	@Override
 	public CommentResponse upComment(int commentId, int memberNo) {
