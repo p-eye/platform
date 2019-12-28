@@ -27,37 +27,160 @@ document.addEventListener("DOMContentLoaded", function() {
     templateBox.innerHTML += bindTemplate(templateData);
   };
 
+  const Product = function(productId, episodeNo) {
+    this.getProductApi(productId, episodeNo);
+  };
+
+  Product.prototype = {
+    getProductApi: function(productId, episodeNo) {
+      sendAjax(
+        "http://localhost:8080/platform/api/detail/" +
+          productId +
+          "/" +
+          episodeNo +
+          "/0"
+      );
+    },
+
+    setProductData(productData) {
+      addTemplate(
+        document.querySelector("#productInfo"),
+        document.querySelector(".comicInfo"),
+        productData
+      );
+
+      document.querySelector(".tit_area .view h3").innerHTML =
+        productData.episodeName;
+    }
+  };
+
+  const Comment = function() {};
+
+  Comment.prototype = {
+    registerEvent: function() {
+      const commentBtn = document.querySelector(".u_cbox_btn_upload");
+      commentBtn.addEventListener("click", Comment.prototype.clickCommentBtn);
+    },
+
+    setCommentData: function(commentData) {
+      addTemplate(
+        document.querySelector("#commentList"),
+        document.querySelector(".u_cbox_list"),
+        commentData
+      );
+
+      document.querySelector(".u_cbox_count").innerHTML =
+        commentData.commentCount;
+    }
+  };
+
+  function clickCommentBtn() {
+    console.log("test");
+    const myForm = document.querySelector(".u_cbox_write_wrap form");
+    console.log(myForm);
+
+    var object = {};
+    new FormData(myForm).forEach(function(value, key) {
+      object[key] = value;
+    });
+    var json = JSON.stringify(object);
+    console.log(json);
+  }
+
+  const CommentUpDownBtn = function() {
+    this.registerEvent();
+  };
+
+  CommentUpDownBtn.prototype = {
+    registerEvent: function() {
+      const commentUpDownBtns = document.querySelectorAll(
+        ".u_cbox_recomm_set a"
+      );
+      commentUpDownBtns.forEach(function(btn) {
+        btn.addEventListener(
+          "click",
+          CommentUpDownBtn.prototype.clickUpDownBtn
+        );
+      });
+    },
+
+    clickUpDownBtn: function() {
+      const targetLi = this.parentNode.parentNode.parentNode.parentNode;
+      const targetCount = this.children[1];
+      const commentId = targetLi.getAttribute("comment-id");
+
+      let targetType = "";
+      if (this.className.indexOf("unrecomm") != -1) {
+        targetType = "down";
+      } else {
+        targetType = "up";
+      }
+
+      CommentUpDownBtn.prototype.sendUpDownBtn(
+        targetType,
+        commentId,
+        targetCount
+      );
+    },
+
+    sendUpDownBtn: function(targetType, commentId, targetCount) {
+      let oReq = new XMLHttpRequest();
+
+      oReq.addEventListener("load", function() {
+        const jsonData = JSON.parse(oReq.responseText);
+        if (oReq.status === 200) {
+          CommentUpDownBtn.prototype.refreshCommentOne(
+            targetType,
+            targetCount,
+            jsonData
+          );
+        } else if (oReq.status !== 200) {
+          alert(jsonData.message);
+        }
+      });
+
+      oReq.open(
+        "POST",
+        "http://localhost:8080/platform/api/comments/" +
+          commentId +
+          "/" +
+          targetType
+      );
+      oReq.send();
+    },
+
+    refreshCommentOne: function(targetType, targetCount, commentData) {
+      if (targetType === "up") {
+        targetCount.innerHTML = commentData.data.upCount;
+        if (commentData.data.up === true) {
+          ClassName.prototype.addClass(targetCount.parentNode, "on");
+        } else {
+          ClassName.prototype.removeClass(targetCount.parentNode, "on");
+        }
+      } else if (targetType === "down") {
+        targetCount.innerHTML = commentData.data.downCount;
+        if (commentData.data.down === true) {
+          ClassName.prototype.addClass(targetCount.parentNode, "on");
+        } else {
+          ClassName.prototype.removeClass(targetCount.parentNode, "on");
+        }
+      }
+    }
+  };
+
+  const setApiData = function(jsonData) {
+    Product.prototype.setProductData(jsonData);
+    Comment.prototype.setCommentData(jsonData);
+  };
+
   const sendAjax = function(url, currentPage) {
     let oReq = new XMLHttpRequest();
 
     oReq.addEventListener("load", function() {
       const jsonData = JSON.parse(oReq.responseText);
-      console.log(jsonData);
-      addTemplate(
-        document.querySelector("#productInfo"),
-        document.querySelector(".comicInfo"),
-        jsonData
-      );
+      setApiData(jsonData);
 
-      addTemplate(
-        document.querySelector("#commentList"),
-        document.querySelector(".u_cbox_list"),
-        jsonData
-      );
-
-      document.querySelector(".tit_area .view h3").innerHTML =
-        jsonData.episodeName;
-      document.querySelector(".u_cbox_count").innerHTML = jsonData.commentCount;
-
-      const commentUpList = document.querySelectorAll(".u_cbox_btn_recomm");
-      commentUpList.forEach(function(btn) {
-        btn.addEventListener("click", clickUpBtn);
-      });
-
-      const commentdownList = document.querySelectorAll(".u_cbox_btn_unrecomm");
-      commentdownList.forEach(function(btn) {
-        btn.addEventListener("click", clickDownBtn);
-      });
+      new CommentUpDownBtn();
     });
 
     oReq.open("GET", url);
@@ -77,129 +200,13 @@ document.addEventListener("DOMContentLoaded", function() {
     return parameterValue;
   }
 
-  function clickCommentBtn() {
-    console.log("test");
-    const myForm = document.querySelector(".u_cbox_write_wrap form");
-    console.log(myForm);
-
-    var object = {};
-    new FormData(myForm).forEach(function(value, key) {
-      object[key] = value;
-    });
-    var json = JSON.stringify(object);
-    console.log(json);
-  }
-
   function initJS() {
     const productId = getParameterByName("productId");
     const episodeNo =
       getParameterByName("no") === "" ? "1" : getParameterByName("no");
 
-    sendAjax(
-      "http://localhost:8080/platform/api/detail/" +
-        productId +
-        "/" +
-        episodeNo +
-        "/0"
-    );
-
-    const commentBtn = document.querySelector(".u_cbox_btn_upload");
-    commentBtn.addEventListener("click", clickCommentBtn);
-  }
-
-  function clickUpBtn() {
-    let targetEl = "";
-    if (event.target.tagName === "A") {
-      targetEl = event.target.parentNode.parentNode.parentNode.parentNode;
-    } else {
-      targetEl =
-        event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
-    }
-
-    let targetCount = "";
-    if (event.target.tagName === "A") {
-      targetCount = event.target.children[1];
-    } else if (event.target.tagName === "EM") {
-      targetCount = event.target;
-    } else if (event.target.tagName === "SPAN") {
-      targetCount = event.target.nextElementSibling;
-    }
-
-    const commentId = targetEl.getAttribute("comment-id");
-
-    console.log(commentId);
-
-    let oReq = new XMLHttpRequest();
-
-    oReq.addEventListener("load", function() {
-      const jsonData = JSON.parse(oReq.responseText);
-      console.log(jsonData);
-      refreshCommentOne(targetCount, jsonData);
-    });
-
-    oReq.open(
-      "POST",
-      "http://localhost:8080/platform/api/comments/" + commentId + "/up"
-    );
-    oReq.send();
-  }
-
-  function refreshCommentOne(targetCount, jsonData) {
-    targetCount.innerHTML = jsonData.data.upCount;
-    console.log(targetCount.parentNode);
-    console.log(jsonData.data.up);
-    if (jsonData.data.up === true) {
-      ClassName.prototype.addClass(targetCount.parentNode, "on");
-    } else {
-      ClassName.prototype.removeClass(targetCount.parentNode, "on");
-    }
-  }
-
-  function clickDownBtn() {
-    let targetEl = "";
-    if (event.target.tagName === "A") {
-      targetEl = event.target.parentNode.parentNode.parentNode.parentNode;
-    } else {
-      targetEl =
-        event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
-    }
-
-    let targetCount = "";
-    if (event.target.tagName === "A") {
-      targetCount = event.target.children[1];
-    } else if (event.target.tagName === "EM") {
-      targetCount = event.target;
-    } else if (event.target.tagName === "SPAN") {
-      targetCount = event.target.nextElementSibling;
-    }
-
-    const commentId = targetEl.getAttribute("comment-id");
-
-    console.log(commentId);
-
-    let oReq = new XMLHttpRequest();
-
-    oReq.addEventListener("load", function() {
-      const jsonData = JSON.parse(oReq.responseText);
-      console.log(jsonData);
-      refreshCommentOneDown(targetCount, jsonData);
-    });
-
-    oReq.open(
-      "POST",
-      "http://localhost:8080/platform/api/comments/" + commentId + "/down"
-    );
-    oReq.send();
-  }
-
-  function refreshCommentOneDown(targetCount, jsonData) {
-    targetCount.innerHTML = jsonData.data.upCount;
-    console.log(targetCount.parentNode);
-    if (jsonData.data.down === true) {
-      ClassName.prototype.addClass(targetCount.parentNode, "on");
-    } else {
-      ClassName.prototype.removeClass(targetCount.parentNode, "on");
-    }
+    new Product(productId, episodeNo);
+    new Comment();
   }
 
   initJS();

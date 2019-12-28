@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
       event.preventDefault();
       event.stopPropagation();
 
-      if (!LoginInput.prototype.isAllInputFilled()) return false;
+    //  if (!LoginInput.prototype.isAllInputFilled()) return false;
 
       const loginForm = document.querySelector("form");
       loginForm.submit();

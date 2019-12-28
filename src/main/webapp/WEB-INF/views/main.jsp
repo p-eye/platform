@@ -18,7 +18,7 @@
   <body>
     <nav class="navbar nav-global navbar-expand-sm">
       <div class="container">
-        <a class="navbar-brand" href="./main.html">
+        <a class="navbar-brand" href="./main">
           EYETOON
         </a>
       </div>

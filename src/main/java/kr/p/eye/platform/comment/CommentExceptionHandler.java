@@ -27,9 +27,8 @@ public class CommentExceptionHandler {
 		List<Error> errors = new ArrayList<>();
 		errors.add(new Error(errorMsg));
 
-		return new ResponseEntity(new ErrorResponse(errorMsg, 400, errors), HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(new ErrorResponse(errorMsg, 400, errors), HttpStatus.BAD_REQUEST);
 
 	}
-
 
 }

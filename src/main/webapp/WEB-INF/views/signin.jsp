@@ -18,7 +18,7 @@
   <body>
     <nav class="navbar nav-global nav-global-center navbar-expand-sm">
       <div class="container d-flex justify-content-center">
-        <a class="navbar-brand" href="./main.html">
+        <a class="navbar-brand" href="./main">
           EYE NEWS
         </a>
       </div>

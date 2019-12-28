@@ -50,6 +50,10 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	public int thumbsUpComment(int commentId, int memberNo) {
+		
+		if(isMemberThumbsDown(commentId, memberNo)) {
+			throw new CommentException("이미 '싫어요'한 댓글입니다");
+		}
 		if (!isMemberThumbsUp(commentId, memberNo)) {
 			commentDao.plusCommentUp(commentId);
 			return commentUpDao.insertCommentUp(commentId, memberNo);
@@ -61,6 +65,10 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	public int thumbsDownComment(int commentId, int memberNo) {
+		
+		if(isMemberThumbsUp(commentId, memberNo)) {
+			throw new CommentException("이미 '좋아요'한 댓글입니다");
+		}
 		if (!isMemberThumbsDown(commentId, memberNo)) {
 			commentDao.plusCommentDown(commentId);
 			return commentDownDao.insertCommentDown(commentId, memberNo);
@@ -73,9 +81,6 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	public boolean isMemberThumbsUp(int commentId, int memberNo) {
-		System.out.println(commentId);
-		System.out.println(memberNo);
-		System.out.println(commentDao.isMemberThumbsUp(commentId, memberNo));
 		if (commentDao.isMemberThumbsUp(commentId, memberNo) == 0) {
 			return false;
 		} else {

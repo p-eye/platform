@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
       event.preventDefault();
       event.stopPropagation();
 
-      if (!MemberInput.prototype.isAllInputFilled()) return false;
+    //  if (!MemberInput.prototype.isAllInputFilled()) return false;
 
       SignupBtn.prototype.createMemberObj();
     },
