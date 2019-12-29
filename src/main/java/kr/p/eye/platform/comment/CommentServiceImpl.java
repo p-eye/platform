@@ -22,6 +22,16 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getCommentListByDate(int episodeId, int page) {
+		int lastPage = (int) Math.ceil((double) countCommentList(episodeId) / COMMENT_PER_PAGE);
+
+		if (page < 1)
+			page = 1;
+
+		else if (page > lastPage)
+			page = lastPage;
+
+		page = (page - 1) * COMMENT_PER_PAGE;
+		
 		return commentDao.getCommentListByDate(episodeId, page, COMMENT_PER_PAGE);
 	}
 
@@ -29,19 +39,19 @@ public class CommentServiceImpl implements CommentService {
 	public List<Comment> getCommentListByDateLogin(int memberNo, int episodeId, int page) {
 		List<Comment> commentList = commentDao.getCommentListByDate(episodeId, page, COMMENT_PER_PAGE);
 		for (Comment comment : commentList) {
-			int commentId = comment.getCommentId();	
+			int commentId = comment.getCommentId();
 			comment.setUp(isMemberThumbsUp(commentId, memberNo));
 			comment.setDown(isMemberThumbsDown(commentId, memberNo));
 		}
 
 		return commentList;
 	}
-	
+
 	@Override
 	public CommentResponse insertComment(CommentRequest commentRequest) {
 		int commentId = commentDao.insertComment(commentRequest);
 		int memberNo = commentRequest.getMemberNo();
-		
+
 		return getCommentResponse(commentId, memberNo);
 	}
 
@@ -58,8 +68,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	public int thumbsUpComment(int commentId, int memberNo) {
-		
-		if(isMemberThumbsDown(commentId, memberNo)) {
+
+		if (isMemberThumbsDown(commentId, memberNo)) {
 			throw new CommentException("이미 '싫어요'한 댓글입니다");
 		}
 		if (!isMemberThumbsUp(commentId, memberNo)) {
@@ -73,8 +83,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	public int thumbsDownComment(int commentId, int memberNo) {
-		
-		if(isMemberThumbsUp(commentId, memberNo)) {
+
+		if (isMemberThumbsUp(commentId, memberNo)) {
 			throw new CommentException("이미 '좋아요'한 댓글입니다");
 		}
 		if (!isMemberThumbsDown(commentId, memberNo)) {
@@ -110,9 +120,9 @@ public class CommentServiceImpl implements CommentService {
 		commentResponse.setDown(isMemberThumbsDown(commentId, memberNo));
 		return commentResponse;
 	}
-	
+
 	@Override
-	public int countCommentList(int episodeId){
+	public int countCommentList(int episodeId) {
 		return commentDao.countCommentList(episodeId);
 	}
 }

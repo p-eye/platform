@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,6 +73,13 @@ public class CommentApiController {
 		result.put("commentList", commentService.getCommentListByDateLogin(commentRequest.getMemberNo(), commentRequest.getEpisodeId(), 0));
 		result.put("commentCount", commentService.countCommentList(commentRequest.getEpisodeId()));
 		
+		return new ResponseEntity<>(new Response(result, "요청을 성공적으로 처리하였습니다"), HttpStatus.OK);
+	}
+	
+	@GetMapping(path ="/{episodeId}/{page}")
+	public ResponseEntity<?> getCommentList(@PathVariable int episodeId, @PathVariable int page) {
+		HashMap<String, Object> result = new HashMap<>();
+		result.put("commentList", commentService.getCommentListByDate(episodeId, page));
 		return new ResponseEntity<>(new Response(result, "요청을 성공적으로 처리하였습니다"), HttpStatus.OK);
 	}
 

@@ -3,9 +3,6 @@ body {
   margin: 0;
 }
 
-a {
-  transition: 0.3s;
-}
 a:hover {
   text-decoration: none;
 }
@@ -867,4 +864,58 @@ table.viewList td.num {
 .u_cbox a {
   color: #000;
   text-decoration: none;
+}
+
+.u_cbox .u_cbox_paginate {
+  position: relative;
+  min-height: 22px;
+  text-align: center;
+}
+
+.u_cbox .u_cbox_page_wrap {
+  display: inline-block;
+  padding: 8px 0 6px;
+  vertical-align: top;
+}
+
+.u_cbox .u_cbox_paginate .u_cbox_page {
+  display: inline-block;
+  float: left;
+  position: relative;
+  min-width: 20px;
+  height: 20px;
+  padding: 3px 2px 0;
+  margin: -1px 1px;
+  line-height: normal;
+  vertical-align: top;
+  text-align: center;
+  color: #999;
+}
+
+.u_cbox .u_cbox_paginate .u_cbox_page.on {
+  color: #006261;
+  font-weight: 600;
+}
+
+.u_cbox a:hover {
+  color: #006261;
+}
+
+.u_cbox .u_cbox_paginate .u_cbox_pre,
+.u_cbox .u_cbox_paginate .u_cbox_pre_end,
+.u_cbox .u_cbox_paginate .u_cbox_next,
+.u_cbox .u_cbox_paginate .u_cbox_next_end {
+  display: inline-block;
+  float: left;
+  position: relative;
+  height: 20px;
+  padding: 4px 5px 0;
+  border: 1px solid #fff;
+  line-height: 16px;
+}
+
+.u_cbox .u_cbox_paginate .u_cbox_cnt_page {
+  display: inline-block;
+  vertical-align: top;
+  color: #999;
 }

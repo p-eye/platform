@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public interface CommentService {
 
 	public static final Integer COMMENT_PER_PAGE = 5;
-	public static final Integer PAGE_RANGE = 6;
+	public static final Integer PAGE_RANGE = 5;
 
 	public List<Comment> getCommentListByDate(int episodeId, int page);
 

@@ -152,39 +152,8 @@
             <div class="u_cbox_content_wrap">
               <ul class="u_cbox_list"></ul>
             </div>
-            <div class="u_cbox_paginate" style="display: none;">
-              <div class="u_cbox_page_wrap">
-                <span
-                  class="u_cbox_pre u_cbox_pre_end"
-                  title="첫 페이지 목록으로 이동하기"
-                >
-                  <span class="u_cbox_ico_page"></span>
-                  <span class="u_cbox_cnt_page">맨앞</span>
-                  <span class="u_vc">페이지 목록으로 이동하기</span>
-                </span>
-                <span class="u_cbox_pre" title="이전 페이지 목록으로 이동하기">
-                  <span class="u_cbox_ico_page"></span>
-                  <span class="u_cbox_cnt_page">이전</span>
-                  <span class="u_vc">페이지 목록으로 이동하기</span>
-                </span>
-                <strong class="u_cbox_page">
-                  <span class="u_cbox_num_page">1</span>
-                  <span class="u_vc">현재 선택된 페이지</span>
-                </strong>
-                <span class="u_cbox_next" title="다음 페이지 목록으로 이동하기">
-                  <span class="u_cbox_cnt_page">다음</span>
-                  <span class="u_cbox_ico_page"></span>
-                  <span class="u_vc">페이지 목록으로 이동하기</span>
-                </span>
-                <span
-                  class="u_cbox_next u_cbox_next_end"
-                  title="마지막 페이지 목록으로 이동하기"
-                >
-                  <span class="u_cbox_cnt_page">맨뒤</span>
-                  <span class="u_cbox_ico_page"></span>
-                  <span class="u_vc">페이지 목록으로 이동하기</span>
-                </span>
-              </div>
+            <div class="u_cbox_paginate" style="display: block;">
+              <div class="u_cbox_page_wrap"></div>
             </div>
             <div class="u_cbox_view_comment">
               <a
@@ -251,6 +220,20 @@
       </li>
       {{/each}}
     </script>
+    <script type="rv-template" id="commentPage">
+      <a href="javascript:;" class="u_cbox_pre_end" title="첫 페이지 목록으로 이동하기">
+        <span class="u_cbox_cnt_page">처음</span></a>
+        <a href="javascript:;" class="u_cbox_pre" title="이전 페이지 목록으로 이동하기">
+        <span class="u_cbox_cnt_page">이전</span></a>
+        {{#times 1 5}}
+        <a href="javascript:;" class="u_cbox_page u_box_num_page" page={{this}}><span class="u_cbox_num_page">{{this}}</span></a>
+        {{/times}}
+        <a href="javascript:;" class="u_cbox_next" title="다음 페이지 목록으로 이동하기">
+        <span class="u_cbox_cnt_page">다음</span></a>
+        <a href="javascript:;" class="u_cbox_next_end" title="마지막 페이지 목록으로 이동하기">
+        <span class="u_cbox_cnt_page">끝</span></span></a>
+    </script>
   </body>
 </html>
+
 

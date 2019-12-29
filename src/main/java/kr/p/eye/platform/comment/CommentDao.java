@@ -49,7 +49,7 @@ public class CommentDao {
 		String sql = "SELECT c.id AS comment_id, " + "c.episode_id, " + "m.member_id AS comment_writer, "
 				+ "c.comment_content AS comment, " + "c.up_count, " + "c.down_count, " + "c.create_date "
 				+ "FROM episode_comment c " + "INNER JOIN member_info m " + "ON c.member_no = m.member_no "
-				+ "WHERE c.episode_id = :episodeId " + "ORDER BY c.create_date DESC " + "limit :page, :limit";
+				+ "WHERE c.episode_id = :episodeId " + "ORDER BY c.id DESC " + "limit :page, :limit";
 
 		return jdbc.query(sql, params, BeanPropertyRowMapper.newInstance(Comment.class));
 	}
