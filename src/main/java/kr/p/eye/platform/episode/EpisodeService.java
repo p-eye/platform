@@ -14,4 +14,5 @@ public interface EpisodeService {
 	
 	public EpisodeDetailResponse getEpisodeDetailResponseLogin(int memberNo, int productId, int episodeNo, int commentPage);
 
+	public int updateViewCnt(int productId, int episodeNo);
 }

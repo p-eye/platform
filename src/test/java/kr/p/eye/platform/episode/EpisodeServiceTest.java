@@ -15,6 +15,9 @@ public class EpisodeServiceTest {
 
 		/*getEpisodeDetailResponse*/
 		System.out.println(episodeService.getEpisodeDetailResponse(1,52,0));
+		
+		/*updateViewCnt*/
+		episodeService.updateViewCnt(1,51);
 	}
 
 }

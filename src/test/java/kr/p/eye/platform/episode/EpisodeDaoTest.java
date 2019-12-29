@@ -23,10 +23,14 @@ public class EpisodeDaoTest {
 		*/
 		
 		/*getEpisodeResponse*/
-	//	System.out.println(episodeDao.getEpisodeResponse(1));
+//		System.out.println(episodeDao.getEpisodeResponse(1));
 		
 		/*getEpisodeDetailResponse*/
-		System.out.println(episodeDao.getEpisodeDetailResponse(1, 51));
+//		System.out.println(episodeDao.getEpisodeDetailResponse(1, 51));
+		
+	
+		/*getEpisodeId*/
+		System.out.println(episodeDao.getEpisodeId(1, 52));
 	}
 
 }

@@ -1,5 +1,6 @@
 package kr.p.eye.platform.episode;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,5 +111,38 @@ public class EpisodeDao {
 
 
 
+	}
+	
+	public int getEpisodeId(int productId, int episodeNo) {
+		
+		Map<String, Integer> params = new HashMap<>();
+		params.put("productId", productId);
+		params.put("episodeNo", episodeNo);
+		String sql = 
+				"SELECT v.id "
+				+"FROM "
+				+"(SELECT e.id, "
+				+"@rownum :=@rownum+1 AS episode_no "
+				+"FROM episode_info e, "
+				+"(SELECT @rownum := 0) r " 
+				+"WHERE e.product_id = 1 ) v "
+				+"WHERE v.episode_no = :episodeNo";
+		
+		return jdbc.queryForObject(sql, params, Integer.class);
+		
+	}
+	
+	
+	public int updateViewCount(int episodeId) {
+		
+		Map<String, Integer> params = new HashMap<>();
+		params.put("episodeId", episodeId);
+		
+		String UPDATE_VIEW_COUNT = 
+		"UPDATE episode_info e "
+		+"SET e.view_cnt  = e.view_cnt +1 "
+		+"WHERE e.id = :episodeId";
+		
+		return jdbc.update(UPDATE_VIEW_COUNT, params);
 	}
 }

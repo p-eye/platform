@@ -25,9 +25,6 @@ public class EpisodeServiceImpl implements EpisodeService {
 		return episodeResponse;
 
 	}
-	
-
-	
 
 	public EpisodeResponse createEpisodeResponse(int productId) {
 		return episodeDao.getEpisodeResponse(productId);
@@ -60,21 +57,21 @@ public class EpisodeServiceImpl implements EpisodeService {
 		return episodeDetailResponse;
 	}
 
-
-
-
 	@Override
 	public EpisodeDetailResponse getEpisodeDetailResponseLogin(int memberNo, int productId, int episodeNo,
 			int commentPage) {
 		EpisodeDetailResponse episodeDetailResponse = episodeDao.getEpisodeDetailResponse(productId, episodeNo);
 		int episodeId = episodeDetailResponse.getEpisodeId();
-		episodeDetailResponse.setCommentList(commentService.getCommentListByDateLogin(memberNo, episodeId, commentPage));
+		episodeDetailResponse
+				.setCommentList(commentService.getCommentListByDateLogin(memberNo, episodeId, commentPage));
 
 		return episodeDetailResponse;
 	}
-	
 
-	
-
+	@Override
+	public int updateViewCnt(int productId, int episodeNo) {
+		int episodeId = episodeDao.getEpisodeId(productId, episodeNo);
+		return episodeDao.updateViewCount(episodeId);
+	}
 
 }
