@@ -129,6 +129,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
       document.querySelector(".u_cbox_count").innerHTML =
         commentData.commentCount;
+
+      new CommentUpDownBtn();
     }
   };
 
@@ -465,6 +467,7 @@ document.addEventListener("DOMContentLoaded", function() {
       oReq.addEventListener("load", function() {
         const jsonData = JSON.parse(oReq.responseText);
         refreshCommentList(jsonData);
+        new CommentUpDownBtn();
       });
 
       oReq.open(

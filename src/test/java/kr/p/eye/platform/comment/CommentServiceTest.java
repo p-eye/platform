@@ -1,5 +1,7 @@
 package kr.p.eye.platform.comment;
 
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -17,9 +19,14 @@ public class CommentServiceTest {
 		 System.out.println(commentService.countCommentList(94));
 		 
 		 
-		System.out.println(commentService.getCommentListByDateLogin(17, 94, 0));
-		System.out.println(commentService.countCommentList(94));
-			
+		List<Comment> commentList = commentService.getCommentListByDateLogin(13, 94, 0);
+		
+		for (Comment comment : commentList) {
+			System.out.println(comment);
+		}
+		
+		
+		
 			
 	}
 

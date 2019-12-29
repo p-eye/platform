@@ -37,6 +37,18 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getCommentListByDateLogin(int memberNo, int episodeId, int page) {
+		
+		int lastPage = (int) Math.ceil((double) countCommentList(episodeId) / COMMENT_PER_PAGE);
+
+		if (page < 1)
+			page = 1;
+
+		else if (page > lastPage)
+			page = lastPage;
+
+		page = (page - 1) * COMMENT_PER_PAGE;
+		
+		
 		List<Comment> commentList = commentDao.getCommentListByDate(episodeId, page, COMMENT_PER_PAGE);
 		for (Comment comment : commentList) {
 			int commentId = comment.getCommentId();

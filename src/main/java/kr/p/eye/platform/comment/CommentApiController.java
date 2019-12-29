@@ -37,8 +37,8 @@ public class CommentApiController {
 		HttpSession session = request.getSession();
 		MemberRequest memberRequest = (MemberRequest) session.getAttribute(LOGIN);
 
-		int loggedMemberNo = memberDao.getMember(memberRequest.getMemberId()).getMemberNo();
-		CommentResponse commentResponse = commentService.upComment(commentId, loggedMemberNo);
+//		int loggedMemberNo = memberDao.getMember(memberRequest.getMemberId()).getMemberNo();
+		CommentResponse commentResponse = commentService.upComment(commentId, 13);
 
 		HashMap<String, Object> result = new HashMap<>();
 		result.put("comment", commentResponse);
@@ -50,8 +50,8 @@ public class CommentApiController {
 		HttpSession session = request.getSession();
 		MemberRequest memberRequest = (MemberRequest) session.getAttribute(LOGIN);
 
-		int loggedMemberNo = memberDao.getMember(memberRequest.getMemberId()).getMemberNo();
-		CommentResponse commentResponse = commentService.downComment(commentId, loggedMemberNo);
+//		int loggedMemberNo = memberDao.getMember(memberRequest.getMemberId()).getMemberNo();
+		CommentResponse commentResponse = commentService.downComment(commentId, 13);
 
 		HashMap<String, Object> result = new HashMap<>();
 		result.put("comment", commentResponse);
@@ -64,9 +64,8 @@ public class CommentApiController {
 		HttpSession session = request.getSession();
 		MemberRequest memberRequest = (MemberRequest) session.getAttribute(LOGIN);
 
-		 int loggedMemberNo =
-		 memberDao.getMember(memberRequest.getMemberId()).getMemberNo();
-		commentRequest.setMemberNo(loggedMemberNo);
+	//	int loggedMemberNo = memberDao.getMember(memberRequest.getMemberId()).getMemberNo();
+		commentRequest.setMemberNo(13);
 
 		HashMap<String, Object> result = new HashMap<>();
 		result.put("comment", commentService.insertComment(commentRequest));
@@ -77,9 +76,16 @@ public class CommentApiController {
 	}
 	
 	@GetMapping(path ="/{episodeId}/{page}")
-	public ResponseEntity<?> getCommentList(@PathVariable int episodeId, @PathVariable int page) {
+	public ResponseEntity<?> getCommentList(@PathVariable int episodeId, @PathVariable int page, HttpServletRequest request) {
+		
+
+		HttpSession session = request.getSession();
+		MemberRequest memberRequest = (MemberRequest) session.getAttribute(LOGIN);
+
+	//	int loggedMemberNo = memberDao.getMember(memberRequest.getMemberId()).getMemberNo();
+		
 		HashMap<String, Object> result = new HashMap<>();
-		result.put("commentList", commentService.getCommentListByDate(episodeId, page));
+		result.put("commentList", commentService.getCommentListByDateLogin(13, episodeId, page));
 		return new ResponseEntity<>(new Response(result, "요청을 성공적으로 처리하였습니다"), HttpStatus.OK);
 	}
 
