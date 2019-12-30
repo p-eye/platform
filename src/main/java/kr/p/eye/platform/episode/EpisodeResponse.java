@@ -8,16 +8,19 @@ public class EpisodeResponse {
 	private String title;
 	private String content;
 	private String writer;
+	private String productImageUrl;
 	private List<Episode> episodes;
 
 	public EpisodeResponse() {
 	}
 
-	public EpisodeResponse(int totalCount, String title, String content, String writer, List<Episode> episodes) {
+	public EpisodeResponse(int totalCount, String title, String content, String writer, String productImageUrl,
+			List<Episode> episodes) {
 		this.totalCount = totalCount;
 		this.title = title;
 		this.content = content;
 		this.writer = writer;
+		this.productImageUrl = productImageUrl;
 		this.episodes = episodes;
 	}
 
@@ -53,6 +56,14 @@ public class EpisodeResponse {
 		this.writer = writer;
 	}
 
+	public String getProductImageUrl() {
+		return productImageUrl;
+	}
+
+	public void setProductImageUrl(String productImageUrl) {
+		this.productImageUrl = productImageUrl;
+	}
+
 	public List<Episode> getEpisodes() {
 		return episodes;
 	}
@@ -64,7 +75,7 @@ public class EpisodeResponse {
 	@Override
 	public String toString() {
 		return "EpisodeResponse [totalCount=" + totalCount + ", title=" + title + ", content=" + content + ", writer="
-				+ writer + ", episodes=" + episodes + "]";
+				+ writer + ", productImageUrl=" + productImageUrl + ", episodes=" + episodes + "]";
 	}
 
 }

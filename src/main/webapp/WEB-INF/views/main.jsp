@@ -18,7 +18,7 @@
 <body>
 	<nav class="navbar nav-global navbar-expand-sm">
 		<div class="container">
-			<a class="navbar-brand" href="./main"> EYETOON </a>
+			<a class="navbar-brand" href="./"> EYETOON </a>
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item"><a href="./signinForm" class="btn-member">
 						<i class="material-icons">account_box</i>
@@ -70,7 +70,7 @@
             <div class="card">
               <div
                 class="card-img-top"
-                style="background: url('https://shared-comic.pstatic.net/thumb/webtoon/21815/thumbnail/thumbnail_title_21815_218x120.gif') no-repeat center; background-size: cover; height: 200px"
+                style="background: url('./{{productImageUrl}}') no-repeat center; background-size: cover; height: 200px"
               ></div>
               <div class="card-body">
                 <h5 class="title">{{title}}</h5>

@@ -11,4 +11,5 @@ public interface ProductService {
 
 	public ProductResponse getProductListByViewCnt(int categoryId, int start);
 
+	public ProductResponse getProductListByWriter(String writer);
 }

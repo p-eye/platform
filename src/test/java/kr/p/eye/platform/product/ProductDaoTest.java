@@ -22,6 +22,9 @@ public class ProductDaoTest {
 			System.out.println(product);
 		}
 		
+		/* getProductList */
+//		System.out.println(productDao.getProductList("작가1"));
+		
 	}
 
 }

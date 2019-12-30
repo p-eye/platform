@@ -32,7 +32,7 @@ public class EpisodeApiController {
 		return episodeService.getEpisodeResponse(productId, page);
 	}
 
-	@GetMapping(path = "detail/{productId}/{no}/{commentPage}")
+	@GetMapping(path = "/detail/{productId}/{no}/{commentPage}")
 	public EpisodeDetailResponse getEpisodeDetailResponse(
 			@PathVariable(name = "productId", required = true) int productId,
 			@PathVariable(name = "no", required = true) int no,
@@ -49,4 +49,5 @@ public class EpisodeApiController {
 		}
 
 	}
+
 }

@@ -6,6 +6,7 @@ public class Product {
 	private int categoryId;
 	private String title;
 	private String writer;
+	private String productImageUrl;
 	private String episodeName;
 	private int viewCnt;
 	private double starScore;
@@ -14,12 +15,13 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(int productId, int categoryId, String title, String writer, String episodeName, int viewCnt,
-			double starScore, int starScoreCount) {
+	public Product(int productId, int categoryId, String title, String writer, String productImageUrl,
+			String episodeName, int viewCnt, double starScore, int starScoreCount) {
 		this.productId = productId;
 		this.categoryId = categoryId;
 		this.title = title;
 		this.writer = writer;
+		this.productImageUrl = productImageUrl;
 		this.episodeName = episodeName;
 		this.viewCnt = viewCnt;
 		this.starScore = starScore;
@@ -58,6 +60,14 @@ public class Product {
 		this.writer = writer;
 	}
 
+	public String getProductImageUrl() {
+		return productImageUrl;
+	}
+
+	public void setProductImageUrl(String productImageUrl) {
+		this.productImageUrl = productImageUrl;
+	}
+
 	public String getEpisodeName() {
 		return episodeName;
 	}
@@ -93,8 +103,8 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", categoryId=" + categoryId + ", title=" + title + ", writer="
-				+ writer + ", episodeName=" + episodeName + ", viewCnt=" + viewCnt + ", starScore=" + starScore
-				+ ", starScoreCount=" + starScoreCount + "]";
+				+ writer + ", productImageUrl=" + productImageUrl + ", episodeName=" + episodeName + ", viewCnt="
+				+ viewCnt + ", starScore=" + starScore + ", starScoreCount=" + starScoreCount + "]";
 	}
 
 }

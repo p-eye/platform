@@ -35,4 +35,14 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.countProductList(categoryId);
 	}
 
+	@Override
+	public ProductResponse getProductListByWriter(String writer) {
+		ProductResponse productResponse = new ProductResponse();
+		List<Product> productList = productDao.getProductList(writer);
+		productResponse.setItems(productList);
+		
+		return productResponse;
+	}
+
+	
 }
