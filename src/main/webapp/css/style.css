@@ -154,18 +154,17 @@ footer h6 {
 }
 .nav-global .navbar-nav .nav-item a,
 .nav-global .navbar-nav .nav-item button {
-  transition: 0.3s;
   display: inline-flex;
   vertical-align: middle;
   color: white;
   padding: 4px 16px;
   border-radius: 3px;
-  background-color: #ff8a3d;
+  background-color: #006261;
   border: 0;
 }
 .nav-global .navbar-nav .nav-item a:hover,
 .nav-global .navbar-nav .nav-item button:hover {
-  background-color: #df732d;
+  background-color: #014948;
 }
 .nav-global .navbar-nav .nav-item a:focus,
 .nav-global .navbar-nav .nav-item button:focus {
@@ -350,9 +349,10 @@ footer h6 {
   line-height: 1.8;
 }
 
-.btn-filter {
+.btn-member {
   position: relative;
 }
+/*
 .btn-filter.active::after {
   content: "";
   position: absolute;
@@ -365,7 +365,7 @@ footer h6 {
   background-color: #ff8a3d;
   box-shadow: 0 0 0 2px #ff8a3d;
 }
-
+*/
 .modal-filter .slider {
   display: block;
   width: calc(100% - 16px);

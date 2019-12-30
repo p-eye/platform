@@ -16,10 +16,10 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
   </head>
   <body>
-    <nav class="navbar nav-global nav-global-center navbar-expand-sm">
-      <div class="container d-flex justify-content-center">
-        <a class="navbar-brand" href="./main.html">
-          EYE NEWS
+    <nav class="navbar nav-global navbar-expand-sm">
+      <div class="container">
+        <a class="navbar-brand" href="./">
+          EYETOON
         </a>
       </div>
     </nav>
