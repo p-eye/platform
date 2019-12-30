@@ -8,6 +8,9 @@ public class EpisodeRequest {
 	private int productId;
 	private String episodeName;
 	private String writer;
+	private int viewCnt;
+	private int starScore;
+	private int starScoreCount;
 	private LocalDateTime createDate;
 	private LocalDateTime modifyDate;
 
@@ -16,12 +19,15 @@ public class EpisodeRequest {
 		modifyDate = LocalDateTime.now();
 	}
 
-	public EpisodeRequest(int id, int productId, String episodeName, String writer, LocalDateTime createDate,
-			LocalDateTime modifyDate) {
+	public EpisodeRequest(int id, int productId, String episodeName, String writer, int viewCnt, int starScore,
+			int starScoreCount, LocalDateTime createDate, LocalDateTime modifyDate) {
 		this.id = id;
 		this.productId = productId;
 		this.episodeName = episodeName;
 		this.writer = writer;
+		this.viewCnt = viewCnt;
+		this.starScore = starScore;
+		this.starScoreCount = starScoreCount;
 		this.createDate = createDate;
 		this.modifyDate = modifyDate;
 	}
@@ -58,6 +64,30 @@ public class EpisodeRequest {
 		this.writer = writer;
 	}
 
+	public int getViewCnt() {
+		return viewCnt;
+	}
+
+	public void setViewCnt(int viewCnt) {
+		this.viewCnt = viewCnt;
+	}
+
+	public int getStarScore() {
+		return starScore;
+	}
+
+	public void setStarScore(int starScore) {
+		this.starScore = starScore;
+	}
+
+	public int getStarScoreCount() {
+		return starScoreCount;
+	}
+
+	public void setStarScoreCount(int starScoreCount) {
+		this.starScoreCount = starScoreCount;
+	}
+
 	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
@@ -77,7 +107,8 @@ public class EpisodeRequest {
 	@Override
 	public String toString() {
 		return "EpisodeRequest [id=" + id + ", productId=" + productId + ", episodeName=" + episodeName + ", writer="
-				+ writer + ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
+				+ writer + ", viewCnt=" + viewCnt + ", starScore=" + starScore + ", starScoreCount=" + starScoreCount
+				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
 	}
 
 }

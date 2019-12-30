@@ -66,7 +66,7 @@
 	<script type="rv-template" id="productList">
       {{#each items}}
           <li class="list-products-item col-12 col-md-4 col-lg-4">
-          <a href="detail.html">
+          <a href="./list?productId={{productId}}">
             <div class="card">
               <div
                 class="card-img-top"

@@ -4,8 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.p.eye.platform.comment.CommentService;
+import kr.p.eye.platform.episodeimage.EpisodeImageService;
+import kr.p.eye.platform.fileinfo.FileinfoService;
 
 @Service
 public class EpisodeServiceImpl implements EpisodeService {
@@ -15,6 +19,12 @@ public class EpisodeServiceImpl implements EpisodeService {
 
 	@Autowired
 	CommentService commentService;
+
+	@Autowired
+	FileinfoService fileinfoService;
+
+	@Autowired
+	EpisodeImageService episodeImageService;
 
 	@Override
 	public EpisodeResponse getEpisodeResponse(int productId, int page) {
@@ -72,6 +82,22 @@ public class EpisodeServiceImpl implements EpisodeService {
 	public int updateViewCnt(int productId, int episodeNo) {
 		int episodeId = episodeDao.getEpisodeId(productId, episodeNo);
 		return episodeDao.updateViewCount(episodeId);
+	}
+
+	@Override
+	@Transactional
+	public void insertEpisodeAndFile(EpisodeRequest episodeRequest, MultipartFile episodeThumbnail,
+			List<MultipartFile> episodeContent) {
+		int episodeId = insertEpisode(episodeRequest);
+		int thumbnailFileId = fileinfoService.insertThumbnail(episodeThumbnail);
+		episodeImageService.insertEpisodeThumbnailImage(thumbnailFileId, episodeId);
+		List<Integer> contentFileIdList = fileinfoService.insertContent(episodeContent);
+		episodeImageService.insertEpisodeContentImage(contentFileIdList, episodeId);
+
+	}
+
+	public int insertEpisode(EpisodeRequest episodeRequest) {
+		return episodeDao.insertEpisode(episodeRequest);
 	}
 
 }

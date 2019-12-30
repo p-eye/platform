@@ -1,13 +1,16 @@
 package kr.p.eye.platform.episode;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 public class EpisodeController {
 
 	@Autowired
@@ -25,12 +28,17 @@ public class EpisodeController {
 	
 	
 	@PostMapping(path = "/upload")
-	public void insertEpisode(EpisodeRequest episodeRequest,
-			@RequestParam MultipartFile files) {
+	public ModelAndView insertEpisode(EpisodeRequest episodeRequest,
+			@RequestParam MultipartFile episodeThumbnail,@RequestParam List<MultipartFile> episodeContent) {
 		
 		episodeRequest.setWriter("작가1");
 		System.out.println(episodeRequest);
-		System.out.println(files);
+		System.out.println(episodeThumbnail.getOriginalFilename());
+		System.out.println(episodeContent);
+		
+		episodeService.insertEpisodeAndFile(episodeRequest, episodeThumbnail, episodeContent);
 
+		return new ModelAndView("redirect:list?productId="+episodeRequest.getProductId());
 	}
+	
 }
