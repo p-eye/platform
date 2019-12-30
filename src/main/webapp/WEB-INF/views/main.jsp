@@ -24,7 +24,7 @@
 						<i class="material-icons">account_box</i>
 				</a></li>
 
-				<li class="nav-item"><a href="item_create.html"><i
+				<li class="nav-item"><a href="./upload"><i
 						class="material-icons ic-create">create</i></a></li>
 			</ul>
 		</div>

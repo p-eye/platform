@@ -32,13 +32,15 @@ public class EpisodeController {
 			@RequestParam MultipartFile episodeThumbnail,@RequestParam List<MultipartFile> episodeContent) {
 		
 		episodeRequest.setWriter("작가1");
-		System.out.println(episodeRequest);
-		System.out.println(episodeThumbnail.getOriginalFilename());
-		System.out.println(episodeContent);
-		
 		episodeService.insertEpisodeAndFile(episodeRequest, episodeThumbnail, episodeContent);
 
 		return new ModelAndView("redirect:list?productId="+episodeRequest.getProductId());
+	}
+	
+
+	@GetMapping(path = "/upload")
+	public String getUpload() {
+		return "upload";
 	}
 	
 }
