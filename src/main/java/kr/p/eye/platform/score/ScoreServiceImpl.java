@@ -21,10 +21,11 @@ public class ScoreServiceImpl implements ScoreService {
 		
 		scoreRequest.setEpisodeId(episodeId);
 		scoreDao.insertScore(scoreRequest);
+		scoreDao.updateScoreCount(episodeId);
 	
 		ScoreResponse scoreResponse = new ScoreResponse();
 		scoreResponse.setStarCount(getStarCount(episodeId));
-		scoreResponse.setAvgStarScore(getAvgStarScore(episodeId));
+		scoreResponse.setStarScore(getAvgStarScore(episodeId));
 
 		return scoreResponse;
 

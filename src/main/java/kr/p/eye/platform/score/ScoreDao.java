@@ -33,7 +33,7 @@ public class ScoreDao {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("episodeId", episodeId);
 		String sql = 
-				"SELECT star_score_count "
+				"SELECT star_count "
 				+"FROM episode_info "
 				+"WHERE id = :episodeId";
 		
@@ -48,5 +48,12 @@ public class ScoreDao {
 				+"FROM score s "
 				+"WHERE s.episode_id = :episodeId";
 		return jdbc.queryForObject(sql, params, Double.class);
+	}
+	
+	public int updateScoreCount(int episodeId) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("episodeId", episodeId);
+		String sql = "UPDATE episode_info SET star_count = star_count + 1 WHERE id = :episodeId";
+		return jdbc.update(sql, params);
 	}
 }

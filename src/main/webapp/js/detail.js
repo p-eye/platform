@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-  let pageRangeIndex = 0;
   const ClassName = function() {};
 
   ClassName.prototype = {
@@ -58,13 +57,38 @@ document.addEventListener("DOMContentLoaded", function() {
 
       document.querySelector(".tit_area .view h3").innerHTML =
         productData.episodeName;
+      document.querySelector(".date").innerHTML = productData.createDate;
     }
   };
 
-  const Comment = function() {};
+  const Comment = function() {
+    console.log("asdfff");
+    this.registerRefreshBtnEvent();
+  };
 
   Comment.prototype = {
     episodeId: "",
+
+    registerRefreshBtnEvent: function() {
+      const refreshBtn = document.querySelector(".u_cbox_btn_refresh");
+
+      refreshBtn.addEventListener("click", Comment.prototype.clickRefreshBtn);
+    },
+
+    clickRefreshBtn: function() {
+      console.log("test");
+      const commentPage = 1;
+
+      CommentPage.prototype.currentPage = commentPage;
+
+      CommentPage.prototype.sendCurrentPage(commentPage);
+      CommentPage.prototype.pageColumn = 0;
+      CommentPage.prototype.setPageList();
+
+      CommentPage.prototype.colorFirstPage(
+        document.querySelector("a.u_box_num_page")
+      );
+    },
 
     initCommentList: function() {
       const commentList = document.querySelectorAll(
@@ -95,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function() {
       commentBtn.addEventListener("click", Comment.prototype.clickCommentBtn);
     },
 
-    clickCommentBtn() {
+    clickCommentBtn: function() {
       const commentFormData = new FormData(document.querySelector(".form"));
       let oReq = new XMLHttpRequest();
       oReq.open(
@@ -118,7 +142,6 @@ document.addEventListener("DOMContentLoaded", function() {
     },
 
     refreshCommentList(commentData) {
-      console.log(commentData);
       Comment.prototype.initCommentList();
 
       addTemplate(
@@ -129,7 +152,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
       document.querySelector(".u_cbox_count").innerHTML =
         commentData.commentCount;
-
+      CommentPage.prototype.pageColumn = 0;
+      CommentPage.prototype.setPageList();
       new CommentUpDownBtn();
     }
   };
@@ -220,6 +244,7 @@ document.addEventListener("DOMContentLoaded", function() {
     Comment.prototype.setCommentData(jsonData);
     new CommentUpDownBtn();
     new CommentPage(jsonData);
+    StarScore.prototype.setScoreData(jsonData);
   };
 
   const sendAjax = function(url) {
@@ -304,6 +329,10 @@ document.addEventListener("DOMContentLoaded", function() {
       CommentPage.prototype.setPrevPageBtn();
       CommentPage.prototype.setNextPageBtn();
       CommentPage.prototype.setNumberPageBtn();
+
+      CommentPage.prototype.colorFirstPage(
+        document.querySelector("a.u_box_num_page")
+      );
     },
 
     setFirstPageBtn: function() {
@@ -503,6 +532,108 @@ document.addEventListener("DOMContentLoaded", function() {
     );
   }
 
+  const StarScore = function() {
+    this.registerLabelEvent();
+    this.registerScoreEvent();
+    this.registerSubmitEvent();
+  };
+
+  StarScore.prototype = {
+    score: 10,
+
+    scoreSelectOption: document.querySelector("#pointSelectOption"),
+
+    setScoreData: function(scoreData) {
+      const totalStarMenu = document.querySelector("#topTotalStarPoint");
+      const starScore = scoreData.starScore.toFixed(2);
+      const starCount = scoreData.starCount;
+
+      totalStarMenu
+        .querySelector(".star em")
+        .setAttribute("style", "width: " + starScore * 10 + "%");
+
+      totalStarMenu.querySelector(
+        "#topPointTotalNumber strong"
+      ).innerHTML = starScore;
+
+      totalStarMenu.querySelector(".pointTotalPerson em").innerHTML = starCount;
+    },
+
+    registerLabelEvent: function() {
+      const label = document.querySelector("#starScoreMenu_1");
+      label.addEventListener("click", StarScore.prototype.clickLabel);
+    },
+
+    clickLabel: function() {
+      StarScore.prototype.toggleSelectOption();
+    },
+
+    toggleSelectOption: function() {
+      if (
+        StarScore.prototype.scoreSelectOption
+          .getAttribute("style")
+          .indexOf("none") != -1
+      ) {
+        StarScore.prototype.scoreSelectOption.setAttribute(
+          "style",
+          "display: block"
+        );
+      } else {
+        StarScore.prototype.scoreSelectOption.setAttribute(
+          "style",
+          "display: none"
+        );
+      }
+    },
+
+    registerScoreEvent: function() {
+      const scoreList = document.querySelectorAll("#pointSelectOption a");
+      scoreList.forEach(function(score) {
+        score.addEventListener("click", StarScore.prototype.clickScore);
+      });
+    },
+
+    clickScore: function() {
+      StarScore.prototype.score = this.getAttribute("value");
+      const width = this.querySelector(".mask").getAttribute("style");
+      const targetMask = document.querySelector("#topTargetMask");
+      targetMask.setAttribute("style", width);
+
+      StarScore.prototype.scoreSelectOption.setAttribute(
+        "style",
+        "display: none"
+      );
+    },
+
+    registerSubmitEvent: function() {
+      const submitBtn = document.querySelector("#topStarScoreSubmitButton");
+      submitBtn.addEventListener("click", StarScore.prototype.clickSubmitBtn);
+    },
+
+    clickSubmitBtn: function() {
+      const score = StarScore.prototype.score;
+
+      let scoreObj = {};
+      scoreObj["score"] = score;
+      scoreObj["productId"] = getParameterByName("productId");
+      scoreObj["episodeNo"] =
+        getParameterByName("no") === "" ? "1" : getParameterByName("no");
+      StarScore.prototype.sendScore(scoreObj);
+    },
+
+    sendScore: function(scoreObj) {
+      let oReq = new XMLHttpRequest();
+      oReq.open("POST", "http://localhost:8080/platform/api/score");
+      oReq.setRequestHeader("Content-Type", "application/json");
+      oReq.addEventListener("load", function() {
+        const jsonData = JSON.parse(oReq.responseText);
+        StarScore.prototype.setScoreData(jsonData.result.score);
+      });
+
+      oReq.send(JSON.stringify(scoreObj));
+    }
+  };
+
   function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
@@ -523,6 +654,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     new Product(productId, episodeNo);
     new Comment();
+    new StarScore();
   }
 
   initJS();

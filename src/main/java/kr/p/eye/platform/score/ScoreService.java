@@ -10,4 +10,5 @@ public interface ScoreService {
 	public int getStarCount(int episodeId);
 	
 	public double getAvgStarScore(int episodeId);
+
 }

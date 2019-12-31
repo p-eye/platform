@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.p.eye.platform.comment.CommentService;
 import kr.p.eye.platform.episodeimage.EpisodeImageService;
 import kr.p.eye.platform.fileinfo.FileinfoService;
+import kr.p.eye.platform.score.ScoreService;
 
 @Service
 public class EpisodeServiceImpl implements EpisodeService {
@@ -25,6 +26,9 @@ public class EpisodeServiceImpl implements EpisodeService {
 
 	@Autowired
 	EpisodeImageService episodeImageService;
+	
+	@Autowired
+	ScoreService scoreService;
 
 	@Override
 	public EpisodeResponse getEpisodeResponse(int productId, int page) {
@@ -63,6 +67,8 @@ public class EpisodeServiceImpl implements EpisodeService {
 		EpisodeDetailResponse episodeDetailResponse = episodeDao.getEpisodeDetailResponse(productId, episodeNo);
 		int episodeId = episodeDetailResponse.getEpisodeId();
 		episodeDetailResponse.setCommentList(commentService.getCommentListByDate(episodeId, commentPage));
+		episodeDetailResponse.setStarScore(scoreService.getAvgStarScore(episodeId));
+		episodeDetailResponse.setStarCount(scoreService.getStarCount(episodeId));
 
 		return episodeDetailResponse;
 	}

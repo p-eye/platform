@@ -3,14 +3,14 @@ package kr.p.eye.platform.score;
 public class ScoreResponse {
 
 	private int starCount;
-	private double avgStarScore;
+	private double starScore;
 
 	public ScoreResponse() {
 	}
 
-	public ScoreResponse(int starCount, double avgStarScore) {
+	public ScoreResponse(int starCount, double starScore) {
 		this.starCount = starCount;
-		this.avgStarScore = avgStarScore;
+		this.starScore = starScore;
 	}
 
 	public int getStarCount() {
@@ -21,17 +21,17 @@ public class ScoreResponse {
 		this.starCount = starCount;
 	}
 
-	public double getAvgStarScore() {
-		return avgStarScore;
+	public double getStarScore() {
+		return starScore;
 	}
 
-	public void setAvgStarScore(double avgStarScore) {
-		this.avgStarScore = avgStarScore;
+	public void setStarScore(double starScore) {
+		this.starScore = starScore;
 	}
 
 	@Override
 	public String toString() {
-		return "ScoreResponse [starCount=" + starCount + ", avgStarScore=" + avgStarScore + "]";
+		return "ScoreResponse [starCount=" + starCount + ", starScore=" + starScore + "]";
 	}
 
 }

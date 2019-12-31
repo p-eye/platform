@@ -247,12 +247,13 @@ footer h6 {
   display: block;
   color: #263747;
 }
+/*
 @media (min-width: 768px) {
   .list-products a:hover {
     transform: translateY(-4px);
     box-shadow: 0 16px 16px -8px rgba(20, 20, 50, 0.12);
   }
-}
+}*/
 .list-products .card {
   border: 0;
   box-shadow: inset 0 0 0 1px #e9ecf3;
@@ -588,7 +589,6 @@ table.viewList td.title {
 }
 
 table.viewList td {
-  border-bottom: 1px solid #ededed;
   font-size: 14px;
   color: #5a5a5a;
   text-align: center;
@@ -678,14 +678,6 @@ table.viewList td.num {
 
 .section_cont {
   padding-top: 30px;
-}
-
-.vote_lst .lt {
-  float: left;
-}
-
-.vote_lst .rt {
-  float: right;
 }
 
 .u_cbox_list {
@@ -966,4 +958,248 @@ table.viewList td.num {
 
 img.item_thumb {
   padding-left: 10px;
+}
+
+.paginate {
+  position: relative;
+  min-height: 22px;
+  margin-top: 17px;
+  text-align: center;
+}
+.page_wrap {
+  display: inline-block;
+  padding: 8px 0 6px;
+  vertical-align: top;
+}
+
+.paginate .cnt_page {
+  line-height: 14px;
+}
+
+.star_type4 {
+  display: block;
+  width: 59px;
+  height: 12px;
+  background: url(../img/bg_star_n.gif) no-repeat 0 0;
+  text-align: left;
+}
+
+.star_type4 .mask {
+  display: block;
+  overflow: hidden;
+  position: static;
+  width: 0;
+  height: 12px;
+  border: 0;
+  opacity: 100;
+}
+
+.star_type4 .mask img {
+  display: block;
+}
+
+.end_page .tit_area .vote_lst {
+  padding-bottom: 7px;
+}
+.vote_lst {
+  margin: 0 auto;
+  padding: 10px 0 8px 4px;
+  zoom: 1;
+}
+
+.vote_lst .lt {
+  float: left;
+}
+.vote_lst .rt {
+  float: right;
+}
+
+.vote_lst dt {
+  padding: 4px 10px 1px;
+}
+.vote_lst dt,
+.vote_lst dd {
+  float: left;
+}
+
+.vote_lst .lt .total {
+  height: 16px;
+  margin-top: -1px;
+  padding-right: 10px;
+  background-position: 100% 4px;
+}
+
+.vote_lst .lt dt {
+  padding: 4px 9px 1px;
+  color: #767676;
+  font-size: 12px;
+}
+
+.rating_type4 {
+  display: inline;
+  margin: 0 0 0 3px;
+  white-space: normal;
+}
+
+div[class^="rating_type"] .star {
+  display: inline-block;
+  width: 75px;
+  height: 13px;
+  background: url(../img/sp_star.gif) no-repeat 0 0;
+  text-align: left;
+  vertical-align: middle;
+}
+.rating_type4 .star {
+  width: 96px !important;
+  background-position: -1px -118px !important;
+}
+.rating_type4 .star,
+.rating_type4 .star em {
+  height: 17px !important;
+}
+
+div[class^="rating_type"] strong {
+  display: inline-block;
+  margin-left: 3px;
+  font-size: 11px;
+  color: #606060;
+  vertical-align: middle;
+}
+
+.rating_type4 strong {
+  padding-top: 2px;
+  font-size: 15px !important;
+}
+
+.rating_type4 .pointTotalPerson {
+  color: #8b8b8b;
+  font-size: 12px;
+  vertical-align: -3px;
+}
+
+.pointSelect {
+  position: relative;
+  z-index: 99;
+}
+.fl {
+  float: left;
+}
+
+.pointSelect .default {
+  display: block;
+  width: 81px;
+  height: 18px;
+  margin-right: 5px;
+  padding: 2px 0 3px 5px;
+  border: 1px solid #cbcbcb;
+  background: #fff url(../img/arrow_down_gy_1.gif) no-repeat 71px 7px;
+}
+
+.star_type4 .mask {
+  display: block;
+  overflow: hidden;
+  position: static;
+  width: 0;
+  height: 12px;
+  border: 0;
+  opacity: 100;
+}
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid #000;
+  opacity: 0.1;
+}
+
+.star_type4 .mask img {
+  display: block;
+}
+img {
+  vertical-align: top;
+}
+
+.pointSelect ul {
+  display: block;
+  position: absolute;
+  top: 17px;
+  left: 0;
+  z-index: 99;
+  width: 75px;
+  padding: 3px;
+  border: 1px solid #bbb;
+  background: #fff;
+}
+
+.pointSelect ul li {
+  overflow: hidden;
+  float: left;
+  clear: both;
+  width: 75px;
+  height: 17px;
+  margin: 0;
+}
+
+.pointSelect ul li a {
+  display: block;
+  height: 12px;
+  padding: 2px 16px 3px 3px;
+  border: 0;
+  font-size: 11px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.vote_lst .btn_bx {
+  display: inline-block;
+  overflow: hidden;
+  height: 18px;
+  padding: 0 4px;
+  border: 1px solid #d9d9d9;
+  font-size: 11px;
+  color: #434343;
+  line-height: 18px;
+  cursor: pointer;
+}
+
+div[class^="rating_type"] .star em {
+  display: block;
+  background: url(https://static-comic.pstatic.net/staticImages/COMICWEB/NAVER/img/common/sp_star.gif)
+    no-repeat 0 -19px;
+  text-indent: -9999px;
+}
+.rating_type4 .star em {
+  background-position: -1px -144px !important;
+}
+.rating_type4 .star,
+.rating_type4 .star em {
+  height: 17px !important;
+}
+
+.vote_lst .rt dt:nth-of-type(1) {
+  padding-right: 8px;
+}
+.vote_lst .rt dt {
+  padding: 4px 9px 1px;
+  color: #767676;
+  font-size: 12px;
+}
+.vote_lst .rt dd.date {
+  padding: 3px 11px 0 0;
+  color: #767676;
+  font-size: 13px;
+}
+.vote_lst dd {
+  background: url(https://static-comic.pstatic.net/staticImages/COMICWEB/NAVER/img/detail/bg_bar.gif)
+    no-repeat 100% 3px;
+  margin-bottom: 0;
+}
+
+div[class^="rating_type"] .star em.list {
+  display: block;
+  background: url(https://static-comic.pstatic.net/staticImages/COMICWEB/NAVER/img/common/sp_star.gif)
+    no-repeat 0 -16px;
+  text-indent: -9999px;
 }
